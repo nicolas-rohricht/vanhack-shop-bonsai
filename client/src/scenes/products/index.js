@@ -1,37 +1,11 @@
 import React from 'react';
-import {SafeAreaView, FlatList, StyleSheet, Text, Image} from 'react-native';
+import {SafeAreaView, FlatList, StyleSheet, Text } from 'react-native';
 import {Button} from 'react-native';
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
 
-const Container = styled.View`
-  width: 90%;
-  background-color: #f6f6f6;
-  padding: 2px;
-  margin: 20px;
-  height: 250px;
-  flex: 1;
-  flex-direction: row;
-`;
-
-const DetailsContainer = styled.View`
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    marginLeft: 10,
-    alignSelf: 'flex-start',
-  },
-  text: {
-    fontSize: 16,
-    marginLeft: 10,
-    alignSelf: 'flex-start',
-  },
-});
+import { Container,  DescriptionContainer, ProductContainer, ProductImage, DescriptionTitle, DescriptionText} from './styledComponents';
+import { verticalScale, scale } from '../../../sizes';
 
 const GET_PRODUCTS = gql`
   {
@@ -49,38 +23,55 @@ const GET_PRODUCTS = gql`
 
 const renderItem = ({item}) => {
   return (
-    <Container>
-      <Image
-        style={{width: 170, height: 250}}
-        source={{uri: item.image}}></Image>
-      <DetailsContainer>
-        <Text style={styles.title}>{item && item.name}</Text>
-        <Text style={styles.text}>Size: {item && item.size}</Text>
-        <Text style={styles.text}>Color: {item && item.color}</Text>
-        <Text style={styles.text}>Price: {item && item.price}</Text>
-        <Text style={styles.text}>Description: {item && item.description}</Text>
-        <Button title="Buy" type="solid" style={{margin: 5}} />
-      </DetailsContainer>
-    </Container>
+    <ProductContainer>
+      <ProductImage source={{uri: item.image}} />
+      <DescriptionContainer>
+        <DescriptionTitle>{item && item.name}</DescriptionTitle>
+        <DescriptionText>Size: {item && item.size}</DescriptionText>
+        <DescriptionText>Color: {item && item.color}</DescriptionText>
+        <DescriptionText>Price: {item && item.price}</DescriptionText>
+        <DescriptionText>Description: {item && item.description}</DescriptionText>
+        <Button title="Buy" type="solid" style={ styles.buyButton } />
+      </DescriptionContainer>
+    </ProductContainer>
   );
 };
 
 const keyExtractor = item => item.id;
 
+const loadingList = () => {
+  return( <Text> Loading... </Text> );
+}
+
 const ProductsList = () => {
-  const { loading, error, data } = useQuery(GET_PRODUCTS);
-  const { products } = data || {}
-  if (loading) return <Text> Loading... </Text>;
-    if (data && data.products) return (
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={products}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-        />
-      </SafeAreaView>
-    );
+  const { loading, error, data } =  useQuery(GET_PRODUCTS);
+  const { products } = data || {};
+
+  if (loading) {
+    return(
+      loadingList()
+    )
+  }
+  if (data && data.products) return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+      />
+    </SafeAreaView>
+  );
   else console.error(error);
 };
+
+const styles = StyleSheet.create({
+  flatListStyle: {
+    marginVertical: verticalScale(10)
+  },
+  buyButton: {
+    paddingHorizontal: scale(20),
+    color: '#2196f3'
+  }
+});
 
 export default ProductsList;
