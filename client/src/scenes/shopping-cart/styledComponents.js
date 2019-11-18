@@ -58,3 +58,33 @@ export const ManageQuantityText = styled.Text`
   background-color: #2196f3;
   color: white
 `
+export const HeaderCheckoutContainer = styled(Animatable.View)`
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 5px;
+  border-radius: 8;
+  margin: 10px 10px;
+  justify-content: space-around;
+  background-color: #66ff66
+`
+
+export const CheckoutIcon = styled(Icon)`
+  font-size: 45px;
+  margin: 5px 10px;
+  color: green;
+`
+
+export const CheckoutValue = styled.Text`
+  font-size: 25px;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+`
+
+export const DescriptionValueContainer = styled.View`
+  flex-direction: column
+`
+export const RemoveFromCartButton = styled(Icon)`
+  font-size: 30px;
+  color: #ff3333;
+`

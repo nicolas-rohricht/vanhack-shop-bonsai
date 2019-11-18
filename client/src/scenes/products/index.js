@@ -6,7 +6,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import Drawer from 'react-native-drawer-menu';
+import SideMenu from 'react-native-side-menu';
 
 import { Container,  DescriptionContainer, ProductContainer, 
           ProductImage, DescriptionTitle, DescriptionText,  ExtraButtonContainer, 
@@ -125,13 +125,8 @@ class ProductList extends Component {
         { this.props.gettingListOfProducts &&
           <ActivityIndicator message={`Getting only the best products for you (:`}/>
         }
-        <Drawer
-          ref={'sideButtonsDrawer'}
-          drawerWidth={270}
-          drawerContent={ <View /> }
-          type={Drawer.types.Replace }
-          drawerPosition={Drawer.positions.Left}
-          disabled={ false }
+        <SideMenu 
+          menu={<View />}
         >
           <Container>
             <SafeAreaView>
@@ -144,7 +139,7 @@ class ProductList extends Component {
             </SafeAreaView>
               
           </Container>
-        </Drawer>
+        </SideMenu>
       </>
     )
   }

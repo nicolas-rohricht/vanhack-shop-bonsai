@@ -67,3 +67,10 @@ export const manageProductCartQuantity = ( item, cartItems, option ) => (dispatc
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: cartItems });
 }
+
+export const removeCartItem = ( item, cartItems ) => (dispatch) => {
+  const tmpCartItems = cartItems.filter(element => element.id !== item.id );
+
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: tmpCartItems });
+}

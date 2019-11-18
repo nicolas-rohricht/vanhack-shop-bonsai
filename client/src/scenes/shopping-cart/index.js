@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 
 import { Container,  DescriptionContainer, ProductContainer, 
         ProductImage, DescriptionTitle, DescriptionText, 
         ImageAndDescriptionContainer, ManageQuantityContainer, 
-        ManageQuantityIcon, ManageQuantityText } from './styledComponents';
+        ManageQuantityIcon, ManageQuantityText, HeaderCheckoutContainer, 
+        CheckoutIcon, CheckoutValue, DescriptionValueContainer, RemoveFromCartButton } from './styledComponents';
 import ActivityIndicator from '../../components/activityIndicator';
 import EmptyListComponent from '../../components/emptyListComponent';
-import { manageProductCartQuantity } from '../../actions/dbActions';
-
-const extraButtonIconSize = 32;
+import { manageProductCartQuantity, removeCartItem } from '../../actions/dbActions';
+import { verticalScale, moderateScale } from '../../../sizes';
 
 class ShoppingCart extends Component {
   renderItem = ({item}) => {
@@ -39,10 +39,43 @@ class ShoppingCart extends Component {
               </TouchableOpacity>
             </ManageQuantityContainer>
           </DescriptionContainer>
+          <TouchableOpacity onPress={ () => { this.props.removeCartItem( item, this.props.cartItems ) }}>
+            <RemoveFromCartButton name='times-circle'/>
+          </TouchableOpacity>
         </ImageAndDescriptionContainer>
-        
       </ProductContainer>
     );
+  }
+
+  renderClearOrBuyAllProducts() {
+    const cartItems = this.props.cartItems;
+    let totalValue = 0;
+
+    for (let index = 0; index < cartItems.length; index++) {
+      const element = cartItems[index];
+      
+      const tmpValue = element.price * element.quantity;
+
+      totalValue += tmpValue;
+    }
+    if (cartItems.length > 0) {
+      return(
+        <HeaderCheckoutContainer
+          animation='slideInDown'
+          useNativeDriver
+          duration={300}
+        >
+          <DescriptionValueContainer>
+            <CheckoutValue>{`Total of\nyour purchase`}</CheckoutValue>
+            <CheckoutValue style={{ fontSize: moderateScale(13)}}>{`Press here to checkout!`}</CheckoutValue>
+          </DescriptionValueContainer>
+          
+         
+          <CheckoutValue>${(totalValue).toFixed(2)}</CheckoutValue>
+          
+        </HeaderCheckoutContainer>
+      )
+    }
   }
 
   render() {
@@ -54,7 +87,9 @@ class ShoppingCart extends Component {
         
         <Container>
           <SafeAreaView>
+            { this.renderClearOrBuyAllProducts() }
             <FlatList
+              style={{marginBottom: verticalScale(60)}}
               data={this.props.cartItems}
               renderItem={this.renderItem}
               keyExtractor={item => item.id.toString()}
@@ -75,4 +110,4 @@ const mapStateToProps = state => ({
   cartItems: state.dbReducer.cartItems,
 });
 
-export default connect( mapStateToProps, { manageProductCartQuantity })(ShoppingCart);
+export default connect( mapStateToProps, { manageProductCartQuantity, removeCartItem })(ShoppingCart);

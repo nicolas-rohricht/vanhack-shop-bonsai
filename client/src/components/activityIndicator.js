@@ -50,6 +50,8 @@ align-items: center;
 const Message = styled.Text`
   color: white;
   font-size: 21px;
+  margin: 15px 100px;
+  text-align: center;
 `
 const Logo = styled(Animatable.Image)`
   width: 120;

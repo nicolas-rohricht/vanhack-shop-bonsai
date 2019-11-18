@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import * as Animatable from 'react-native-animatable';
 
 import Styles from './styles';
-import TabIcon from './src/components/TabIcons';
 
 //Scenes
 import Products from './src/scenes/products';

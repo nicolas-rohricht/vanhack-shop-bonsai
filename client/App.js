@@ -3,7 +3,6 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 
 import client from './src/createClient';
-import Products from './src/components/Products';
 import Router from './router';
 import { store } from './config';
 
