@@ -12,7 +12,7 @@ export const ProductContainer = styled.View`
   flex-direction: column;
   margin: 10px 10px;
   border-radius: 8px;
-  height: 310px;
+  height: 360px;
   background-color: #b6dcfb;
 `;
 

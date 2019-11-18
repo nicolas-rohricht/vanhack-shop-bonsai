@@ -55,7 +55,9 @@ class ProductList extends Component {
             <DescriptionTitle>{item && item.name}</DescriptionTitle>
             <DescriptionText>Size: {item && item.size}</DescriptionText>
             <DescriptionText>Color: {item && item.color}</DescriptionText>
-            <DescriptionText>Price: {item && item.price}</DescriptionText>
+            <DescriptionText>Brand: {item && item.brand}</DescriptionText>
+            <DescriptionText>Price: ${item && (item.price).toFixed(2)}</DescriptionText>
+            <DescriptionText>Sold by: {item && item.merchant}</DescriptionText>
             <DescriptionText >Description: {item && item.description}</DescriptionText>
             <Button
               onPress={()=>{}}      

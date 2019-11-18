@@ -12,7 +12,7 @@ export const ProductContainer = styled.View`
   flex-direction: column;
   margin: 10px 10px;
   border-radius: 8px;
-  height: 190px;
+  height: 250px;
   background-color: #b6dcfb;
 `;
 
@@ -43,9 +43,18 @@ export const DescriptionText = styled.Text`
 export const ManageQuantityContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  margin-top: 10px;
 `
 
 export const ManageQuantityIcon = styled(Icon)`
-  font-size: 17px;
+  font-size: 22px;
+`
+
+export const ManageQuantityText = styled.Text`
+  font-size: 25px;
+  padding-horizontal: 30px;
+  border-radius: 8;
+  background-color: #2196f3;
+  color: white
 `

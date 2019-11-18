@@ -57,3 +57,13 @@ export const clearSelection = ( listOfProducts ) => (dispatch) => {
   dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: [] })
   dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: listOfProducts })
 }
+
+export const manageProductCartQuantity = ( item, cartItems, option ) => (dispatch) => {
+  cartItems.map(element => { 
+    ((element.id === item.id) &&
+    (element.quantity = option === 'increase' ? element.quantity + 1 : element.quantity - 1))
+  });
+
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: cartItems });
+}
