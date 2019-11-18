@@ -7,6 +7,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
+import ProductsFilter from '../../components/productsFilter';
 
 import { Container,  DescriptionContainer, ProductContainer, 
           ProductImage, DescriptionTitle, DescriptionText,  ExtraButtonContainer, 
@@ -126,7 +127,7 @@ class ProductList extends Component {
           <ActivityIndicator message={`Getting only the best products for you (:`}/>
         }
         <SideMenu 
-          menu={<View />}
+          menu={<ProductsFilter />}
         >
           <Container>
             <SafeAreaView>

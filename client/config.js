@@ -5,7 +5,7 @@ import reactotron, { overlay } from 'reactotron-react-native';
 import reducers from './src/reducers';
 
 export const tron = reactotron
-.configure({ host:'192.168.25.40' })
+.configure({ host:'192.168.0.33' })
 .configure()
 .useReactNative()
 .use(overlay())
