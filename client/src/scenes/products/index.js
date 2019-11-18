@@ -24,28 +24,26 @@ class ProductList extends Component {
     this.props.getListOfProducts();
   }
 
-  componentWillUpdate() {
-    console.tron.log('rodou o update')
-  }
-
   addToCart = ( item ) => {
-    const { listOfProducts, cartItems } = this.props;
-    this.props.changeCartItems( cartItems, item);
+    this.props.changeCartItems( this.props.cartItems, [item]);
   }
 
   addToLiked = ( item ) => {
-    const { listOfProducts, likedItems } = this.props;
-    this.props.changeLikedItems( likedItems, item);
+    this.props.changeLikedItems( this.props.likedItems, item);
   }
 
   selectProduct = ( item ) => {
-    const { listOfProducts } = this.props;
-    this.props.changeSelectedItems( listOfProducts, item );
+    this.props.changeSelectedItems( this.props.listOfProducts, item );
   }
 
   clearSelection = () => {
-    const { listOfProducts } = this.props;
-    this.props.clearSelection( listOfProducts );
+    this.props.clearSelection( this.props.listOfProducts );
+  }
+
+  addAllToCart = () => {
+    const allSelected = this.props.listOfProducts.filter(element => element.selected);
+
+    this.props.changeCartItems( this.props.cartItems, [allSelected]);
   }
 
   renderItem = ({item}) => {
@@ -108,10 +106,10 @@ class ProductList extends Component {
               <ExtraButtonText style={{ fontWeight: 'normal'}}>Clear selection</ExtraButtonText>
             </ExtraButtonContainer>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.addToLiked( item ) }}>
+          <TouchableOpacity onPress={() => { this.addAllToCart() }}>
           <ExtraButtonContainer>
               <ExtraButton name='list-ul' size={extraButtonIconSize} />
-              <ExtraButtonText style={{ fontWeight: 'normal'}}>Add to cart all selected</ExtraButtonText>
+              <ExtraButtonText style={{ fontWeight: 'normal'}}>Add all selected to cart</ExtraButtonText>
             </ExtraButtonContainer>
           </TouchableOpacity>
         </HeaderButtonsContainer>
@@ -141,8 +139,8 @@ class ProductList extends Component {
                 renderItem={this.renderItem}
                 keyExtractor={item => item.id.toString()}
               />
-
             </SafeAreaView>
+              
           </Container>
         </Drawer>
       </>

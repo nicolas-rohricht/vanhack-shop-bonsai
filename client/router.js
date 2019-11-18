@@ -11,6 +11,7 @@ import TabIcon from './src/components/TabIcons';
 
 //Scenes
 import Products from './src/scenes/products';
+import ShoppingCart from './src/scenes/shopping-cart';
 
 import TabCartIconTab from './src/components/tabCartIcon';
 
@@ -74,7 +75,7 @@ class RouterComponent extends Component {
                   <Scene 
                     key='cart'
                     title='Cart'
-                    component={Products}
+                    component={ShoppingCart}
                   />
                 </Stack>  
                 <Stack
