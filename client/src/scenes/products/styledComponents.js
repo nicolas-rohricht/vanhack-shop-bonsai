@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Animatable from 'react-native-animatable';
 
 export const Container = styled.View`
   background-color: #f4f4f4;
   flex: 1;
-  zIndex: 5;
-  
 `;
 
 export const ProductContainer = styled.View`
@@ -46,7 +45,6 @@ export const ExtraButtonContainer = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 `
 export const ExtraButton = styled(Icon)`
   border-radius: 8;
@@ -61,4 +59,11 @@ export const AdditionalButtonsContainer = styled.View`
 export const ExtraButtonText = styled.Text`
   font-size: 16px;
   font-weight: bold;
+`
+
+export const HeaderButtonsContainer = styled(Animatable.View)`
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 5px;
 `

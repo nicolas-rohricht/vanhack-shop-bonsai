@@ -12,6 +12,8 @@ import TabIcon from './src/components/TabIcons';
 //Scenes
 import Products from './src/scenes/products';
 
+import TabCartIconTab from './src/components/tabCartIcon';
+
 const focusedColor = 'black';
 const unfocusedColor = 'gray';
 const tabBarIconSize = 42;
@@ -23,23 +25,7 @@ class RouterComponent extends Component {
     </ContainerIconTab>
   );
 
-  TabCart = ({ focused }) => (
-    <ContainerIconTab
-      animation='tada'
-      duration={400}
-      useNativeDriver  
-    >
-      { this.props.cartItems.length > 0 &&
-        <CounterText 
-          animation='slideInUp'
-          duration={100}
-          useNativeDriver
-        >{this.props.cartItems.length}</CounterText>
-      }
-      
-      <Icon name='shopping-cart' size={tabBarIconSize} color={ focused ? focusedColor : unfocusedColor} />
-    </ContainerIconTab>
-  );
+  
 
   TabUser = ({ focused }) => (
     <ContainerIconTab>
@@ -83,7 +69,7 @@ class RouterComponent extends Component {
                 <Stack
                   key='tabCart'
                   title='Cart'
-                  icon={ this.TabCart }
+                  icon={ TabCartIconTab  }
                 >
                   <Scene 
                     key='cart'
@@ -116,27 +102,8 @@ const ContainerIconTab = styled(Animatable.View)`
   justify-content: center;
 `
 
-const CartCounter = styled.View`
-  width: 24;
-  height: 24;
-  border-radius: 12;
-  background-color: #ff1a1a;
-  align-items: center;
-  margin-right: -20px;
-  position: absolute;
-  z-index: 1;
-`
-const CounterText = styled(Animatable.Text)`
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  z-index: 1;
-  margin-bottom: -28px;
-  margin-right: -5px;
-`
-
 const mapStateToProps = state => ({
-  cartItems: state.dbReducer.cartItems
+  //cartItems: state.dbReducer.cartItems
 });
 
 export default connect( mapStateToProps, {})(RouterComponent);

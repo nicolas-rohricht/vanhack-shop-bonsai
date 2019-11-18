@@ -13,13 +13,12 @@ export default (state = INITIAL_STATE, action) => {
         gettingListOfProducts: true
       }
     
-    case Types.GET_LIST_OF_PRODUCTS_SUCCESS: 
-      return {
+    case Types.GET_LIST_OF_PRODUCTS_SUCCESS:
+    return {
         ...state,
         listOfProducts: action.payload,
         gettingListOfProducts: false
-      }
-
+    }
 
     default:
       return state;
