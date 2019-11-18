@@ -1,139 +1,100 @@
-import React from 'react';
-import {View, SafeAreaView, FlatList, StyleSheet, Text, Animated } from 'react-native';
+import React, { Component } from 'react';
+import {View, SafeAreaView, FlatList, StyleSheet, Text, Animated, TouchableOpacity } from 'react-native';
 
-import {useQuery} from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import Button from 'apsl-react-native-button';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { Container,  DescriptionContainer, ProductContainer, ProductImage, DescriptionTitle, DescriptionText} from './styledComponents';
+import { connect } from 'react-redux';
+
+import { Container,  DescriptionContainer, ProductContainer, 
+          ProductImage, DescriptionTitle, DescriptionText,  ExtraButtonContainer, 
+          ExtraButton, AdditionalButtonsContainer, ImageAndDescriptionContainer,
+          ExtraButtonText } from './styledComponents';
 import { verticalScale, scale } from '../../../sizes';
+import { getListOfProducts } from '../../actions/productsActions';
+import ActivityIndicator from '../../components/activityIndicator';
+import { changeCartItems } from '../../actions/dbActions';
 
-const translateX = new Animated.Value(0);
+const extraButtonIconSize = 32;
 
-const animatedEvent = Animated.event(
-  [
-    {
-      nativeEvent: {
-        translationX: translateX
-      }
-    }
-  ],
-  {
-    useNativeDriver: true 
+
+
+
+class ProductList extends Component {
+  componentDidMount() {
+    this.props.getListOfProducts();
   }
-)
 
-
-
-const GET_PRODUCTS = gql`
-  {
-    products {
-      id
-      name
-      price
-      description
-      color
-      size
-      image
-    }
+  addToCart = ( item ) => {
+    const { listOfProducts, cartItems } = this.props;
+    this.props.changeCartItems( listOfProducts, cartItems, item);
   }
-`;
 
-function onHandlerStateChange( event ) {
-  console.tron.log('chegou aqui');
-  if (event.nativeEvent.oldState === State.ACTIVE) {
-    let opened = false;
-    const { translationX } = event.nativeEvent;
-
-    offset += translationX;
-
-    if (translationX >= 100) {
-      opened = true;
-    } else {
-      translateX.setValue(offset);
-      translateX.setOffset(0);
-      offset = 0;
-    }
-
-    Animated.timing(translateX, {
-      toValue: opened ? 380 : 0,
-      duration: 200,
-      useNativeDriver: true
-    }).start(() => {
-      offset = opened ? 380 : 0;
-      translateX.setOffset(offset);
-      translateX.setValue(0);
-    });
-    
-
-    //translateY.setOffset(offset);
-    //translateY.setValue(0);
-  }
-}
-
-const LeftActions = () => {
-  return(
-    <View>
-      <Text>Funciona pleaaase!</Text>
-    </View>
-  )
-}
-
-const renderItem = ({item}) => {
-  
-  return (
-    <Swipeable
-      renderLeftActions={LeftActions}
-    >
+  renderItem = ({item}) => {
+    return (
       <ProductContainer >
-        <ProductImage source={{uri: item.image}} />
-        <DescriptionContainer>
-          <DescriptionTitle>{item && item.name}</DescriptionTitle>
-          <DescriptionText>Size: {item && item.size}</DescriptionText>
-          <DescriptionText>Color: {item && item.color}</DescriptionText>
-          <DescriptionText>Price: {item && item.price}</DescriptionText>
-          <DescriptionText>Description: {item && item.description}</DescriptionText>
-          <Button
-            onPress={()=>{}}      
-            style={ styles.buyButton } 
-            textStyle={ styles.textStyle }
-          >
-              Buy
-          </Button>
-        </DescriptionContainer>
+        <ImageAndDescriptionContainer>
+          <ProductImage resizeMode='stretch' source={{ uri: item.image }}/>
+          <DescriptionContainer>
+            <DescriptionTitle>{item && item.name}</DescriptionTitle>
+            <DescriptionText>Size: {item && item.size}</DescriptionText>
+            <DescriptionText>Color: {item && item.color}</DescriptionText>
+            <DescriptionText>Price: {item && item.price}</DescriptionText>
+            <DescriptionText >Description: {item && item.description}</DescriptionText>
+            <Button
+              onPress={()=>{}}      
+              style={ styles.buyButton } 
+              textStyle={ styles.textStyle }
+            >
+                Buy
+            </Button>
+          </DescriptionContainer>
+        </ImageAndDescriptionContainer>
+        <AdditionalButtonsContainer>
+          <TouchableOpacity onPress={() => { }}>
+            <ExtraButtonContainer>
+              <ExtraButton name='check' size={extraButtonIconSize} color={ item.selected ? '#00cc66' : '#808080'} /> 
+              <ExtraButtonText style={{ color: item.selected ? '#00cc66' : '#808080'}}>Select</ExtraButtonText>
+            </ExtraButtonContainer>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {}}>
+            <ExtraButtonContainer>
+              <ExtraButton name='heart' size={extraButtonIconSize} color={'#ff1a1a'} />
+              <ExtraButtonText style={{ color:'#ff1a1a'}}>Favorite</ExtraButtonText>
+            </ExtraButtonContainer>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { this.addToCart( item ) }}>
+            <ExtraButtonContainer>
+              <ExtraButton name='shopping-cart' size={extraButtonIconSize} color={'#008000'} />
+              <ExtraButtonText style={{ color:'#008000'}}>Add to cart</ExtraButtonText>
+            </ExtraButtonContainer>
+          </TouchableOpacity>
+          </AdditionalButtonsContainer>
       </ProductContainer>
-    </Swipeable>
-  );
-};
-
-const keyExtractor = item => item.id;
-
-const loadingList = () => {
-  return( <Text> Loading... </Text> );
-}
-
-const ProductsList = () => {
-  const { loading, error, data } =  useQuery(GET_PRODUCTS);
-  const { products } = data || {};
-
-  if (loading) {
-    return(
-      loadingList()
+    );
+  }
+  
+  render() {
+    return (
+      <>
+        { this.props.gettingListOfProducts &&
+          <ActivityIndicator message={`Getting only best products for you (:`}/>
+        }
+        <Container>
+          <SafeAreaView>
+            <FlatList
+              data={this.props.listOfProducts}
+              renderItem={this.renderItem}
+              keyExtractor={item => item.id.toString()}
+            />
+          </SafeAreaView>
+        </Container>
+      </>
     )
   }
-  if (data && data.products) return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-      />
-    </SafeAreaView>
-  );
-  else console.error(error);
-};
+}
 
 const styles = StyleSheet.create({
   flatListStyle: {
@@ -144,12 +105,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196f3',
     borderWidth: 0,
     marginHorizontal: scale(10),
-    marginTop: verticalScale(10)
+    marginTop: verticalScale(7)
   },
   textStyle: {
     textAlign: 'center',
     color: 'white',
-  }
+  },
 });
 
-export default ProductsList;
+const mapStateToProps = state => ({
+  listOfProducts : state.productsReducer.listOfProducts,
+  gettingListOfProducts: state.productsReducer.gettingListOfProducts,
+  cartItems: state.dbReducer.cartItems
+});
+
+export default connect( mapStateToProps, { getListOfProducts, changeCartItems })(ProductList);
