@@ -11,6 +11,7 @@ import Styles from './styles';
 //Scenes
 import Products from './src/scenes/products';
 import ShoppingCart from './src/scenes/shopping-cart';
+import Checkout from './src/components/checkout';
 
 import TabCartIconTab from './src/components/tabCartIcon';
 
@@ -75,6 +76,14 @@ class RouterComponent extends Component {
                     key='cart'
                     title='Cart'
                     component={ShoppingCart}
+                  />
+
+                  <Scene 
+                    key='checkout'
+                    title='Chekout'
+                    hideNavBar
+                    hideTabBar
+                    component={Checkout}
                   />
                 </Stack>  
                 <Stack

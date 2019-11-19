@@ -18,6 +18,7 @@ import { getListOfProducts } from '../../actions/productsActions';
 import ActivityIndicator from '../../components/activityIndicator';
 import { changeCartItems, changeLikedItems, changeSelectedItems, clearSelection } from '../../actions/dbActions';
 import EmptyListComponent from '../../components/emptyListComponent';
+import { Actions } from 'react-native-router-flux';
 
 const extraButtonIconSize = 32;
 
@@ -48,6 +49,11 @@ class ProductList extends Component {
     this.props.changeCartItems( this.props.cartItems, [allSelected]);
   }
 
+  buyProduct = ( item ) => {
+    this.props.changeCartItems( this.props.cartItems, [item]);
+    Actions.tabCart();
+  }
+
   renderItem = ({item}) => {
     return (
       <ProductContainer >
@@ -62,7 +68,7 @@ class ProductList extends Component {
             <DescriptionText>Sold by: {item && item.merchant}</DescriptionText>
             <DescriptionText >Description: {item && item.description}</DescriptionText>
             <Button
-              onPress={()=>{}}      
+              onPress={()=>{ this.buyProduct( item ) }}      
               style={ styles.buyButton } 
               textStyle={ styles.textStyle }
             >

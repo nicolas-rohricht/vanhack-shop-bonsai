@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   navigatorBar: {
     margin: 0,  
     elevation: 0,
-    height: (Platform.OS == 'ios' ? 50 : 40),
+    height: (Platform.OS == 'ios' ? 70 : 60),
     borderBottomWidth: 0,
     backgroundColor: 'white'
   },

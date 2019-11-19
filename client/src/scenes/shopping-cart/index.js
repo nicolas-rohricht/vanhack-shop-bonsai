@@ -10,8 +10,9 @@ import { Container,  DescriptionContainer, ProductContainer,
         CheckoutIcon, CheckoutValue, DescriptionValueContainer, RemoveFromCartButton } from './styledComponents';
 import ActivityIndicator from '../../components/activityIndicator';
 import EmptyListComponent from '../../components/emptyListComponent';
-import { manageProductCartQuantity, removeCartItem } from '../../actions/dbActions';
+import { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart } from '../../actions/dbActions';
 import { verticalScale, moderateScale } from '../../../sizes';
+import { Actions } from 'react-native-router-flux';
 
 class ShoppingCart extends Component {
   renderItem = ({item}) => {
@@ -47,7 +48,7 @@ class ShoppingCart extends Component {
     );
   }
 
-  renderClearOrBuyAllProducts() {
+  totalOfBuy() {
     const cartItems = this.props.cartItems;
     let totalValue = 0;
 
@@ -58,22 +59,27 @@ class ShoppingCart extends Component {
 
       totalValue += tmpValue;
     }
-    if (cartItems.length > 0) {
+    if (totalValue > 0) {
       return(
-        <HeaderCheckoutContainer
-          animation='slideInDown'
-          useNativeDriver
-          duration={300}
-        >
-          <DescriptionValueContainer>
-            <CheckoutValue>{`Total of\nyour purchase`}</CheckoutValue>
-            <CheckoutValue style={{ fontSize: moderateScale(13)}}>{`Press here to checkout!`}</CheckoutValue>
-          </DescriptionValueContainer>
+        <TouchableOpacity onPress={()=> {
+          Actions.checkout();
+          setTimeout(() => this.props.removeAllItemsFromCart(), 1000);
+        }}>
+          <HeaderCheckoutContainer
+            animation='slideInDown'
+            useNativeDriver
+            duration={300}
+          >
+            <DescriptionValueContainer>
+              <CheckoutValue>{`Total of\nyour purchase`}</CheckoutValue>
+              <CheckoutValue style={{ fontSize: moderateScale(13)}}>{`Press here to checkout!`}</CheckoutValue>
+            </DescriptionValueContainer>
+            
           
-         
-          <CheckoutValue>${(totalValue).toFixed(2)}</CheckoutValue>
-          
-        </HeaderCheckoutContainer>
+            <CheckoutValue>${(totalValue).toFixed(2)}</CheckoutValue>
+            
+          </HeaderCheckoutContainer>
+        </TouchableOpacity>
       )
     }
   }
@@ -87,7 +93,7 @@ class ShoppingCart extends Component {
         
         <Container>
           <SafeAreaView>
-            { this.renderClearOrBuyAllProducts() }
+            { this.totalOfBuy() }
             <FlatList
               style={{marginBottom: verticalScale(60)}}
               data={this.props.cartItems}
@@ -110,4 +116,4 @@ const mapStateToProps = state => ({
   cartItems: state.dbReducer.cartItems,
 });
 
-export default connect( mapStateToProps, { manageProductCartQuantity, removeCartItem })(ShoppingCart);
+export default connect( mapStateToProps, { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart })(ShoppingCart);

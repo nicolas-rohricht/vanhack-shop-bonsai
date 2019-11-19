@@ -74,3 +74,7 @@ export const removeCartItem = ( item, cartItems ) => (dispatch) => {
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: tmpCartItems });
 }
+
+export const removeAllItemsFromCart = () => (dispatch) => {
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
+}

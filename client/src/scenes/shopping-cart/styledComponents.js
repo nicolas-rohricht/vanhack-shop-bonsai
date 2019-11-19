@@ -62,10 +62,8 @@ export const HeaderCheckoutContainer = styled(Animatable.View)`
   flex-direction: row;
   align-items: center;
   padding-bottom: 5px;
-  border-radius: 8;
   margin: 10px 10px;
   justify-content: space-around;
-  background-color: #66ff66
 `
 
 export const CheckoutIcon = styled(Icon)`
@@ -76,7 +74,6 @@ export const CheckoutIcon = styled(Icon)`
 
 export const CheckoutValue = styled.Text`
   font-size: 25px;
-  color: green;
   font-weight: bold;
   text-align: center;
 `
