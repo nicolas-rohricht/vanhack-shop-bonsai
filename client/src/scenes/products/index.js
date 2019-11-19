@@ -17,6 +17,7 @@ import { verticalScale, scale } from '../../../sizes';
 import { getListOfProducts } from '../../actions/productsActions';
 import ActivityIndicator from '../../components/activityIndicator';
 import { changeCartItems, changeLikedItems, changeSelectedItems, clearSelection } from '../../actions/dbActions';
+import EmptyListComponent from '../../components/emptyListComponent';
 
 const extraButtonIconSize = 32;
 
@@ -136,6 +137,11 @@ class ProductList extends Component {
                 data={this.props.listOfProducts}
                 renderItem={this.renderItem}
                 keyExtractor={item => item.id.toString()}
+                ListEmptyComponent={ <EmptyListComponent 
+                                       title='There are no products to show!' 
+                                       subtitle='Check your connection or verify the params of the filter!'
+                                       icon='list'
+                                      />}
               />
             </SafeAreaView>
               

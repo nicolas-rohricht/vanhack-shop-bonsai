@@ -20,9 +20,10 @@ const EmptyListContainer = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 50px;
 `
 const EmptyListIcon = styled(Icon)`
-  font-size: 180px;
+  font-size: 100px;
   color: gray;
 `
 const EmptyListTitle = styled.Text`

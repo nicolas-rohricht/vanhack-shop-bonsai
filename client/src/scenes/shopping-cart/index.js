@@ -95,7 +95,7 @@ class ShoppingCart extends Component {
               keyExtractor={item => item.id.toString()}
               ListEmptyComponent={ <EmptyListComponent 
                                       title='Your cart is empty!' 
-                                      subtitle='Check our best products on the Products page and add to see here and make you happy again!'
+                                      subtitle='Check the best products for you on the Products page and add them to see here and make you happy again!'
                                     /> }
             />
           </SafeAreaView>

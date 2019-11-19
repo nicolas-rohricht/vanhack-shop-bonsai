@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity, Keyboard } from 'react-native';
 import styled from 'styled-components';
 import { FlatList } from 'react-native';
-import { brands, merchants, colors } from '../components/db';
+import { brands, merchants, colors, products } from '../components/db';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 
-export default class ProductsFilter extends Component {
+import { store } from '../../config';
+import Types from '../actions/actionsTypes';
+
+class ProductsFilter extends Component {
   state={
     brands: [],
     merchants: [],
-    colors: []
+    colors: [],
+    products: [],
+    nameOfProduct: ''
   }
 
   componentDidMount() {
-    this.setState({ brands, merchants, colors });
+    this.setState({ brands, merchants, colors, products });
   }
   
   changeSelectedBrands = ( item ) => {
@@ -47,6 +53,7 @@ export default class ProductsFilter extends Component {
   }
   
   renderBrandsItems = ( {item} ) => {
+    console.tron.log(item);
     return(
       <TouchableOpacity onPress={ () => { this.changeSelectedBrands( item ) }}>
         <ItemContainer>
@@ -91,6 +98,103 @@ export default class ProductsFilter extends Component {
     )
   }
 
+  filter = () => {
+    //Hide the keyboard
+    Keyboard.dismiss();
+
+    let tmpProducts = this.state.products;
+
+    const selectedBrands = this.state.brands.filter( element => element.selected );
+    const selectedMerchants = this.state.merchants.filter( element => element.selected );  
+    const selectedColors = this.state.colors.filter( element => element.selected );
+
+    let localList0 = [];
+
+    if (this.state.nameOfProduct !== '') {
+      localList0 = tmpProducts.filter( element => element.name.includes( this.state.nameOfProduct ));
+      /*tmpProducts.map( element => {
+        if ( element.name.contains( this.state.nameOfProduct ) ) {
+          const newElement = {...element};
+          localList0.push( newElement );
+        }
+      });*/
+    } else {
+      localList0 = tmpProducts;
+    }
+
+    let localList1 = [];
+
+    if (selectedBrands.length> 0) {
+      //filter by brands
+      localList0.map( (element, index) => {
+        selectedBrands.forEach( brandElement => {
+          if (element.brandID ===  brandElement.id) {
+            const newElement = {...element};
+            localList1.push( newElement );
+          }
+        })
+      });
+    } else {
+      localList1 = localList0;
+    }
+
+    let localList2 = [];
+
+    if ( selectedMerchants.length > 0 ) {
+      //filter by merchants
+      localList1.forEach( (element, index) => {
+        selectedMerchants.forEach( merchantElement => {
+          if (element.merchantID === merchantElement.id) {
+
+            const newElement = {...element};
+            localList2.push( newElement );
+          }
+        })
+      });
+    } else {
+      localList2 = localList1;
+    }
+
+    let finalList = [];
+
+    if ( selectedColors.length > 0 ) {
+      //filter by colors
+      localList2.forEach( (element, index) => {
+        selectedColors.forEach( colorElement => {
+
+          if (element.colorID === colorElement.id) {
+            
+            const newElement = {...element};
+            finalList.push( newElement );
+          }
+        })
+      });
+    } else {
+      finalList = localList2;
+    }
+    
+    store.dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: finalList });
+
+  }
+
+  clearFilter = () => {
+    //Hide the keyboard
+    Keyboard.dismiss();
+    
+    this.state.brands.map(element => { element.selected = false });
+    this.setState({ brands });
+    
+    this.state.merchants.map(element => { element.selected = false });
+    this.setState({ merchants });
+
+    this.state.colors.map(element => { element.selected = false });
+    this.setState({ colors });
+
+    this.setState({ nameOfProduct: ' '});
+    
+    store.dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: products });
+  }
+
   render() {
     return (
       <Container>
@@ -103,6 +207,8 @@ export default class ProductsFilter extends Component {
               <SectionTitle>Product name</SectionTitle>
               <InputFilter 
                 placeholder='Search here by product name...'
+                value={ this.state.nameOfProduct }
+                onChangeText={ nameOfProduct => this.setState({ nameOfProduct }) }
               />
             </SectionContainer>
             <SectionContainer>
@@ -137,14 +243,12 @@ export default class ProductsFilter extends Component {
             </SectionContainer>
         </ScrollView>
         <FooterButtonsContainer>
-          <FooterButtons 
-            title='Reset filter'
-          >
-          </FooterButtons>
-          <FooterButtons 
-            title='Aply filter'
-          >
-          </FooterButtons>
+          <TouchableOpacity onPress={() => this.clearFilter() }>
+            <FooterButtonsText>Clear all</FooterButtonsText>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.filter() }>
+            <FooterButtonsText>Apply</FooterButtonsText>
+          </TouchableOpacity>
         </FooterButtonsContainer>
       </Container>
     )
@@ -204,7 +308,7 @@ const ItemName = styled.Text`
   margin: 5px;
 `
 const InputFilter = styled.TextInput`
-  height: 40px;
+  height: 45px;
   border-width: 0.4;
   border-color: gray;
   border-radius: 8;
@@ -214,11 +318,16 @@ const InputFilter = styled.TextInput`
 const FooterButtonsContainer = styled.View`
   flex-direction: row;
   z-index: -1;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 10px;
 `
-const FooterButtons = styled.View`
-  border-radius: 8;
-  height: 40px;
-  width: 
+
+const FooterButtonsText = styled.Text`
+  font-size: 18px;
 `
+
+const mapStateToProps = state => ({
+  listOfProducts : state.productsReducer.listOfProducts,
+})
+
+export default connect( mapStateToProps, {})(ProductsFilter);
