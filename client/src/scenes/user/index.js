@@ -1,12 +1,13 @@
+//User page
+
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
 
 import { UserContainer, UserImage, UserName, UserEmail, ButtonsContainer, 
          ButtonContainer, Separator, ButtonIcon, ButtonText } from './styles';
 import { Actions } from 'react-native-router-flux';
 
-class User extends Component {
+export default class User extends Component {
   render() {
     return (
       <UserContainer>
@@ -33,9 +34,3 @@ class User extends Component {
     )
   }
 }
-
-const mapStateToProps = state => ({
-
-});
-
-export default connect( mapStateToProps, {})(User);

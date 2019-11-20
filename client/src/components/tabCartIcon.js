@@ -1,3 +1,5 @@
+//A separated TabBarIcon to count how many items are already added to the cart
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -9,9 +11,6 @@ const focusedColor = 'black';
 const unfocusedColor = 'gray';
 
 class TabCartIcon extends Component {
-  //cartIcon = ref => this.cartIcon = ref;    
-  //cartText = ref => this.cartText = ref;
-
   render() {
     const { focused } = this.props;
     return (
@@ -48,7 +47,6 @@ const CounterText = styled(Animatable.Text)`
   margin-bottom: -28px;
   margin-right: -5px;
 `
-
 
 const mapStateToProps = state => ({
   cartItems: state.dbReducer.cartItems

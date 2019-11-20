@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import ReduxThunk from 'redux-thunk';
 import reactotron, { overlay } from 'reactotron-react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import reducers from './src/reducers';
 
@@ -14,7 +13,7 @@ const persistConfig = {
 
  const pReducer = persistReducer(persistConfig, reducers);
 
-export const tron = reactotron
+/*export const tron = reactotron
 .configure({ host:'192.168.15.3' })
 .configure()
 .useReactNative()
@@ -23,7 +22,7 @@ export const tron = reactotron
 
 tron.clear();
 
-console.tron = tron;
+console.tron = tron;*/
 
 export const store = createStore(
   pReducer,

@@ -1,5 +1,7 @@
+//This class was created to show a checkout progress to the user through animations
+
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
 import styled from 'styled-components';

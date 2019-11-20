@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import {View, SafeAreaView, FlatList, StyleSheet, 
-        Text, Animated, TouchableOpacity, Image  } from 'react-native';
+//The main App's screen. List the producst and all the functionalities
 
-import Button from 'apsl-react-native-button';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import React, { Component } from 'react';
+import {SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import ProductsFilter from '../../components/productsFilter';
+import { Actions } from 'react-native-router-flux';
 
 import { Container,  DescriptionContainer, ProductContainer, 
           ProductImage, DescriptionTitle, DescriptionMerchant,  ExtraButtonContainer, 
@@ -19,42 +17,49 @@ import { getListOfProducts } from '../../actions/productsActions';
 import ActivityIndicator from '../../components/activityIndicator';
 import { changeCartItems, changeLikedItems, changeSelectedItems, clearSelection } from '../../actions/dbActions';
 import EmptyListComponent from '../../components/emptyListComponent';
-import { Actions } from 'react-native-router-flux';
 
 const extraButtonIconSize = 32;
 
 class ProductList extends Component {
+  //Get the list of products whem mounted
   componentDidMount() {
     this.props.getListOfProducts();
   }
 
+  //Add items to the cart
   addToCart = ( item ) => {
     this.props.changeCartItems( this.props.cartItems, [item]);
   }
 
+  //Add items to the liked list
   addToLiked = ( item ) => {
     this.props.changeLikedItems( this.props.likedItems, item);
   }
 
+  //Add items to the selected. This is controled by a multiselector 
   selectProduct = ( item ) => {
     this.props.changeSelectedItems( this.props.listOfProducts, item );
   }
 
+  //Clear the products selection
   clearSelection = () => {
     this.props.clearSelection( this.props.listOfProducts );
   }
 
+  //Add all selected products to cart
   addAllToCart = () => {
     const allSelected = this.props.listOfProducts.filter(element => element.selected);
 
     this.props.changeCartItems( this.props.cartItems, [allSelected]);
   }
 
+  //Buy a single product
   buyProduct = ( item ) => {
     this.props.changeCartItems( this.props.cartItems, [item]);
     Actions.tabCart();
   }
 
+  //Render the product item
   renderItem = ({item}) => {
     return (
       <ProductContainer>
@@ -88,7 +93,8 @@ class ProductList extends Component {
     )
   }
 
-  renderClearOrBuyAllProducts() {
+  //Render a top container with two options: clear the selection or add selected items to the cart
+  renderClearOrAddAllProducts() {
     const counter = this.props.listOfProducts.filter(element => element.selected);
 
     if (counter.length > 0 ){
@@ -126,7 +132,7 @@ class ProductList extends Component {
         >
           <Container>
             <SafeAreaView>
-              { this.renderClearOrBuyAllProducts() }
+              { this.renderClearOrAddAllProducts() }
               <FlatList
                 numColumns={ 2 }
                 style={{ alignSelf: 'center' }}

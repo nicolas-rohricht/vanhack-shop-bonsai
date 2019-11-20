@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Animated, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 
@@ -23,7 +23,7 @@ export const DescriptionContainer =styled.View`
   border-left-width: 0.5; 
   border-right-width: 0.5; 
   border-color: silver;
-`;
+`
 
 export const TitleAndMerchantContainer = styled.View`
   flex-direction: column;
@@ -37,10 +37,12 @@ export const ProductImage = styled.Image`
   width: 130;
   height: 200;
 `
+
 export const DescriptionTitle = styled.Text`
   font-weight: bold;
   font-size: 15;
 `
+
 export const DescriptionMerchant= styled.Text`
  
 `

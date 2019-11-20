@@ -1,5 +1,6 @@
+//A component created to show loading procccess when retrieving data from API
+
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
 import styled from 'styled-components';
 import * as Animatable from 'react-native-animatable';
 

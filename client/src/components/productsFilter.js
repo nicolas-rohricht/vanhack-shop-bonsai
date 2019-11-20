@@ -1,9 +1,12 @@
+//A filter component added to the produtcs list.
+//If I had some API together with the app, this class would be wrote only with some visual components
+//The logical part like filter the products should be done by the API
+
 import React, { Component } from 'react';
 import { ScrollView, TouchableOpacity, Keyboard } from 'react-native';
 import styled from 'styled-components';
 import { FlatList } from 'react-native';
 import { brands, merchants, colors, products } from '../components/db';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 import { store } from '../../config';
@@ -18,10 +21,12 @@ class ProductsFilter extends Component {
     nameOfProduct: ''
   }
 
+  //When mounted, save on state the data from API
   componentDidMount() {
     this.setState({ brands, merchants, colors, products });
   }
   
+  //Select the brands to filter
   changeSelectedBrands = ( item ) => {
     this.state.brands.map(element => { 
       if ( item.id === element.id ) {
@@ -32,6 +37,7 @@ class ProductsFilter extends Component {
     this.setState({ brands });
   }
 
+  //Select the merchants to filter
   changeSelectedMerchants = ( item ) => {
     this.state.merchants.map(element => { 
       if ( item.id === element.id ) {
@@ -42,6 +48,7 @@ class ProductsFilter extends Component {
     this.setState({ merchants });
   }
 
+  //Select the colors to filter
   changeSelectedColors = ( item ) => {
     this.state.colors.map(element => { 
       if ( item.id === element.id ) {
@@ -52,6 +59,7 @@ class ProductsFilter extends Component {
     this.setState({ colors });
   }
   
+  //Render the brands squares
   renderBrandsItems = ( {item} ) => {
     return(
       <TouchableOpacity onPress={ () => { this.changeSelectedBrands( item ) }}>
@@ -66,6 +74,7 @@ class ProductsFilter extends Component {
     )
   }
   
+  //Render the merchants squares
   renderMerchantsItems = ({ item }) => {
     return(
       <TouchableOpacity onPress={ () => { this.changeSelectedMerchants( item ) }}>
@@ -80,6 +89,7 @@ class ProductsFilter extends Component {
     )
   }
 
+  //Render the colors squares
   renderColorsItems = ({ item }) => {
     return(
       <TouchableOpacity onPress={ () => { this.changeSelectedColors( item ) }}>
@@ -97,10 +107,15 @@ class ProductsFilter extends Component {
     )
   }
 
+  //Filter the products accordint to selected options
   filter = () => {
-    //Hide the keyboard
+    
+    //Hide the keyboard for a better user experience
     Keyboard.dismiss();
 
+    //Unfortunatelly, I had to write the app with a universe of mocked JSON's.
+    //Here I read them to filter the products
+    //On a real and totally working application, this job should be done by the API
     let tmpProducts = this.state.products;
 
     const selectedBrands = this.state.brands.filter( element => element.selected );
@@ -109,14 +124,9 @@ class ProductsFilter extends Component {
 
     let localList0 = [];
 
+    //Filter by name of products
     if (this.state.nameOfProduct !== '') {
       localList0 = tmpProducts.filter( element => element.name.includes( this.state.nameOfProduct ));
-      /*tmpProducts.map( element => {
-        if ( element.name.contains( this.state.nameOfProduct ) ) {
-          const newElement = {...element};
-          localList0.push( newElement );
-        }
-      });*/
     } else {
       localList0 = tmpProducts;
     }
@@ -124,7 +134,7 @@ class ProductsFilter extends Component {
     let localList1 = [];
 
     if (selectedBrands.length> 0) {
-      //filter by brands
+      //Filter by brands
       localList0.map( (element, index) => {
         selectedBrands.forEach( brandElement => {
           if (element.brandID ===  brandElement.id) {
@@ -140,7 +150,7 @@ class ProductsFilter extends Component {
     let localList2 = [];
 
     if ( selectedMerchants.length > 0 ) {
-      //filter by merchants
+      //Filter by merchants
       localList1.forEach( (element, index) => {
         selectedMerchants.forEach( merchantElement => {
           if (element.merchantID === merchantElement.id) {
@@ -157,7 +167,7 @@ class ProductsFilter extends Component {
     let finalList = [];
 
     if ( selectedColors.length > 0 ) {
-      //filter by colors
+      //Filter by colors
       localList2.forEach( (element, index) => {
         selectedColors.forEach( colorElement => {
 
@@ -172,14 +182,15 @@ class ProductsFilter extends Component {
       finalList = localList2;
     }
     
+    //Update on reducer, the filtered products
     store.dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: finalList });
-
   }
 
   clearFilter = () => {
-    //Hide the keyboard
+    //Hide the keyboard for a better user experience
     Keyboard.dismiss();
     
+    //Return all filter's array to default
     this.state.brands.map(element => { element.selected = false });
     this.setState({ brands });
     
@@ -271,23 +282,28 @@ const Subtitle = styled.Text`
   align-self: center;
   text-align: center;
 `
+
 const TitlesContainer = styled.View`
   border-bottom-width: 0.3;
   border-bottom-color: gray;
   padding-bottom: 15px;
 `
+
 const SectionContainer = styled.View`
   flex-direction: column;
   margin-top: 15px;
 `
+
 const SectionTitle = styled.Text`
   font-size: 15px;
   font-weight: bold;
 `
+
 const ItemContainer = styled.View`
  flex-direction: column;
  margin: 10px 10px;
 `
+
 const ItemInitialsContainer = styled.View`
   border-radius: 8;
   height: 60px;
@@ -296,6 +312,7 @@ const ItemInitialsContainer = styled.View`
   align-items: center;
   justify-content: center;
 `
+
 const ItemInitials = styled.Text`
   font-size: 24px;
   color: black;
@@ -306,6 +323,7 @@ const ItemName = styled.Text`
   text-align: center;
   margin: 5px;
 `
+
 const InputFilter = styled.TextInput`
   height: 45px;
   border-width: 0.4;
@@ -314,6 +332,7 @@ const InputFilter = styled.TextInput`
   margin-top: 10px;
   font-size: 18px;
 `
+
 const FooterButtonsContainer = styled.View`
   flex-direction: row;
   z-index: -1;

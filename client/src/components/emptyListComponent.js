@@ -1,3 +1,5 @@
+//A class to show some informations when a FlatList component is empty
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';

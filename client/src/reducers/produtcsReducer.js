@@ -1,3 +1,5 @@
+//The reducer store of products
+
 import Types from '../actions/actionsTypes';
 
 const INITIAL_STATE = {

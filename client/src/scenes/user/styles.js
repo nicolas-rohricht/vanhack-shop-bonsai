@@ -6,6 +6,7 @@ export const UserContainer = styled.View`
   flex-direction: column;
   align-items: center;
 `
+
 export const UserImage = styled.Image`
   margin-top: 50px;
   height: 120px;
@@ -14,11 +15,13 @@ export const UserImage = styled.Image`
   border-width: 0.6;
   border-color: black;
 `
+
 export const UserName = styled.Text`
   text-align: center;
   font-size: 18px;
   margin-top: 20px;
 `
+
 export const UserEmail = styled.Text`
   text-align: center;
   font-size: 13px;
@@ -30,17 +33,20 @@ export const ButtonsContainer = styled.View`
   border-top-color: black;
   flex-direction: row;
 `
+
 export const Separator = styled.View`
   margin: 30px;
   border-left-width: 0.6;
   border-left-color: black;
 `
+
 export const ButtonContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
 `
+
 export const ButtonIcon = styled(Icon)`
   font-size: 45px;
   align-self: center;

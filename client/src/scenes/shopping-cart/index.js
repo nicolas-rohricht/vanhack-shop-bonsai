@@ -1,5 +1,7 @@
+//Render the cart items
+
 import React, { Component } from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
@@ -9,7 +11,6 @@ import { Container, CartItemContainer, CartItemImage,
          ManageQuantityContainer, ManageQuantityIcon, ManageQuantityText, 
          HeaderCheckoutContainer, CheckoutValue, DescriptionValueContainer, 
          RemoveFromCartButton } from './styles';
-import ActivityIndicator from '../../components/activityIndicator';
 import EmptyListComponent from '../../components/emptyListComponent';
 import { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart, changeLastOrders } from '../../actions/dbActions';
 import { verticalScale, moderateScale } from '../../../sizes';
@@ -45,12 +46,14 @@ class ShoppingCart extends Component {
     )
   }
 
+  //When the user click to complete the order, create a single value to be shown on the user's last orders page
   addNewLastOrder = ( value ) => {
     const newId = this.props.lastOrders.length + 1;
 
     this.props.changeLastOrders({ id: newId, value, date: moment( new Date()) });
   }
 
+  //Render total of buy top container
   totalOfBuy() {
     const cartItems = this.props.cartItems;
     let totalValue = 0;
@@ -62,6 +65,7 @@ class ShoppingCart extends Component {
 
       totalValue += tmpValue;
     }
+
     if (totalValue > 0) {
       return(
         <TouchableOpacity onPress={()=> {
@@ -78,10 +82,8 @@ class ShoppingCart extends Component {
               <CheckoutValue>{`Total of\nyour purchase`}</CheckoutValue>
               <CheckoutValue style={{ fontSize: moderateScale(13)}}>{`Press here to checkout!`}</CheckoutValue>
             </DescriptionValueContainer>
-            
           
             <CheckoutValue>${(totalValue).toFixed(2)}</CheckoutValue>
-            
           </HeaderCheckoutContainer>
         </TouchableOpacity>
       )
@@ -91,10 +93,6 @@ class ShoppingCart extends Component {
   render() {
     return (
       <>
-        { this.props.gettingListOfProducts &&
-          <ActivityIndicator message={`Getting only the best products for you (:`}/>
-        }
-        
         <Container>
           <SafeAreaView>
             { this.totalOfBuy() }
@@ -109,7 +107,6 @@ class ShoppingCart extends Component {
                                     /> }
             />
           </SafeAreaView>
-            
         </Container>
       </>
     )

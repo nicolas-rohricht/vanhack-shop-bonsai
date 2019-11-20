@@ -1,6 +1,7 @@
+//Shows the list with liked products
+
 import React, { Component } from 'react';
 import { SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native';
-
 import { connect } from 'react-redux';
 
 import { Container, CartItemContainer, CartItemImage,
@@ -8,7 +9,6 @@ import { Container, CartItemContainer, CartItemImage,
          RemoveFromCartButton } from './styles';
 import EmptyListComponent from '../../components/emptyListComponent';
 import { removeLikedItem } from '../../actions/dbActions';
-import { verticalScale } from '../../../sizes';
 
 class LikedProducts extends Component {
   renderItem = ({item}) => {

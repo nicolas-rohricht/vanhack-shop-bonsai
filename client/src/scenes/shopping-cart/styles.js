@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 
@@ -64,6 +63,7 @@ export const CartItemContainer = styled.View`
   border-top-color: gray;
   padding-top: 25px;
 `
+
 export const CartItemDescriptionContainer = styled.View`
   flex-direction: column;
   margin-left: 10px;
@@ -77,12 +77,11 @@ export const CartItemImage = styled.Image`
   height: 85;
 `
 
-
-
 export const CartItemTitle = styled.Text`
   font-size: 20px;
   margin-left: 10px;
 `
+
 export const CartItemText = styled.Text`
   font-size: 16px;
   margin-left: 10px;

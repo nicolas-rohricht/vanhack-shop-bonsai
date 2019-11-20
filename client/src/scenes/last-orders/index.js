@@ -1,8 +1,9 @@
+//Shows the list with last orders
+
 import React, { Component } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 import moment from 'moment-timezone';
 import 'moment/locale/pt-br';
-
 import { connect } from 'react-redux';
 
 import { Container, LastContainer, LastID,

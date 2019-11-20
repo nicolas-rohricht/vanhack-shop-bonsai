@@ -1,5 +1,8 @@
+//This .js file was created to simulate the API calls to retrieve and manage the data of the app
+
 import Types from './actionsTypes';
 
+//Manage the cart items
 export const changeCartItems = (currentCartItems, item) => (dispatch) => {
   item.forEach( (element, index) => {
     const newItem = currentCartItems.filter( currentElement => currentElement.id === item[index].id);
@@ -14,6 +17,7 @@ export const changeCartItems = (currentCartItems, item) => (dispatch) => {
   
 }
 
+//Manage the liked items
 export const changeLikedItems = (currentLikedItems, item) => (dispatch) => {
   const newItem = currentLikedItems.filter( element => element.id === item.id);
   
@@ -25,6 +29,7 @@ export const changeLikedItems = (currentLikedItems, item) => (dispatch) => {
   }
 }
 
+//Manage the selected items by the multi selector option on products list
 export const changeSelectedItems = ( listOfProducts, item ) => (dispatch) => {
   listOfProducts.map(element => { 
     if ( item.id === element.id ) {
@@ -36,8 +41,8 @@ export const changeSelectedItems = ( listOfProducts, item ) => (dispatch) => {
   dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: listOfProducts })
 }
 
+//Clear the selected products on products list
 export const clearSelection = ( listOfProducts ) => (dispatch) => {
-
   listOfProducts.map(element => { 
     if ( element.selected ) {
       element.selected = false
@@ -48,6 +53,7 @@ export const clearSelection = ( listOfProducts ) => (dispatch) => {
   dispatch({ type: Types.GET_LIST_OF_PRODUCTS_SUCCESS, payload: listOfProducts })
 }
 
+//Manage the quantity of products to buy inside the cart page
 export const manageProductCartQuantity = ( item, cartItems, option ) => (dispatch) => {
   cartItems.map(element => { 
     ((element.id === item.id) &&
@@ -58,6 +64,7 @@ export const manageProductCartQuantity = ( item, cartItems, option ) => (dispatc
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: cartItems });
 }
 
+//Remove the product from cart
 export const removeCartItem = ( item, cartItems ) => (dispatch) => {
   const tmpCartItems = cartItems.filter(element => element.id !== item.id );
 
@@ -65,6 +72,7 @@ export const removeCartItem = ( item, cartItems ) => (dispatch) => {
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: tmpCartItems });
 }
 
+//Remove the product from the liked list
 export const removeLikedItem = ( item, likedItems ) => (dispatch) => {
   const tmpLikedItems = likedItems.filter(element => element.id !== item.id );
 
@@ -72,10 +80,12 @@ export const removeLikedItem = ( item, likedItems ) => (dispatch) => {
   dispatch({ type: Types.CHANGE_LIKED_ITEMS, payload: tmpLikedItems });
 }
 
+//Remove all items from the cart
 export const removeAllItemsFromCart = () => (dispatch) => {
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
 }
 
+//Add a Order to the Last Order List
 export const changeLastOrders = (order) => (dispatch) => {
   dispatch({ type: Types.CHANGE_LAST_ORDERS, payload: order }); 
 }
