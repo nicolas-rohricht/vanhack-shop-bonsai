@@ -43,6 +43,7 @@ export const ButtonContainer = styled.View`
 `
 export const ButtonIcon = styled(Icon)`
   font-size: 45px;
+  align-self: center;
 `
 
 export const ButtonText = styled.Text`

@@ -15,19 +15,19 @@ class User extends Component {
         <UserEmail>nicolas.rohricht@outlook.com</UserEmail>
 
         <ButtonsContainer>
-          <TouchableOpacity onPress={() => Actions.liked()}>
-            <ButtonContainer>
-              <ButtonIcon name='heart' color='#2196f3' />
-              <ButtonText>Liked products</ButtonText>
-            </ButtonContainer>
-          </TouchableOpacity>
+          <ButtonContainer>
+            <TouchableOpacity onPress={() => Actions.liked()}>
+                <ButtonIcon name='heart' color='#2196f3' />
+                <ButtonText>Liked products</ButtonText>
+            </TouchableOpacity>
+          </ButtonContainer>
           <Separator />
-          <TouchableOpacity onPress={() => Actions.lastOrders()}>
-            <ButtonContainer>
+          <ButtonContainer>
+            <TouchableOpacity onPress={() => Actions.lastOrders()}>
               <ButtonIcon name='history' color='#009933' />
               <ButtonText>Last orders</ButtonText>
-            </ButtonContainer>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </ButtonContainer>
         </ButtonsContainer>
       </UserContainer>
     )
