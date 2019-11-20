@@ -15,7 +15,7 @@ import Checkout from './src/components/checkout';
 import User from './src/scenes/user';
 import LikedProducts from './src/scenes/liked-products';
 import LastOrders from './src/scenes/last-orders';
-
+import { RenderFilterButtonLeft } from './src/components/navBarFilterButton';
 import TabCartIconTab from './src/components/tabCartIcon';
 
 const focusedColor = 'black';
@@ -68,6 +68,7 @@ class RouterComponent extends Component {
                     key='products'
                     title='Products'
                     component={Products}
+                    renderLeftButton={ () => RenderFilterButtonLeft() }
                   />
                 </Stack>  
                 <Stack
@@ -125,6 +126,8 @@ const ContainerIconTab = styled(Animatable.View)`
   align-items: center;
   justify-content: center;
 `
+
+
 
 const mapStateToProps = state => ({
   //cartItems: state.dbReducer.cartItems

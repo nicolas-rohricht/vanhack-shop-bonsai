@@ -17,12 +17,34 @@ import { getListOfProducts } from '../../actions/productsActions';
 import ActivityIndicator from '../../components/activityIndicator';
 import { changeCartItems, changeLikedItems, changeSelectedItems, clearSelection } from '../../actions/dbActions';
 import EmptyListComponent from '../../components/emptyListComponent';
+import { RenderFilterButtonLeft } from '../../components/navBarFilterButton';
 
 const extraButtonIconSize = 32;
 
 class ProductList extends Component {
-  //Get the list of products whem mounted
+  state={
+    isMenuOpen: false
+  }
+  
+  componentWillUpdate(nextProps) {
+    if ((nextProps.listOfProducts !== this.props.listOfProducts) &&
+        ( this.state.isMenuOpen )) {
+      this.setState({ isMenuOpen: false });
+    }
+  }
+
+  //When mounted
   componentDidMount() {
+    //Update a filter button, passing a local function to toggle the side menu
+    this.props.navigation.setParams({ left: () => 
+      <TouchableOpacity
+        onPress={() => this.setState({ isMenuOpen: !this.state.isMenuOpen })}
+      >
+        <RenderFilterButtonLeft />
+      </TouchableOpacity>
+    });
+    
+    //Get the list of products 
     this.props.getListOfProducts();
   }
 
@@ -74,7 +96,7 @@ class ProductList extends Component {
           </TitleAndMerchantContainer>
           <ButtonsContainer>
             <ButtonContainer>
-              <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
+              <TouchableOpacity onPress={() => { /*this.selectProduct( item )*/ this.setState({ isMenuOpen: true}) }}>
                 <Icon color={ item.selected ? '#00cc66' : '#808080'} name={item.selected ? 'check-square-o' : 'square-o'} size={25} />
               </TouchableOpacity>
             </ButtonContainer>
@@ -130,6 +152,8 @@ class ProductList extends Component {
         }
         <SideMenu 
           menu={<ProductsFilter />}
+          isOpen={this.state.isMenuOpen}
+          onChange={isMenuOpen => this.setState({ isMenuOpen })}
         >
           <Container>
             <SafeAreaView>
