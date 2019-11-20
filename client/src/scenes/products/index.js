@@ -96,7 +96,7 @@ class ProductList extends Component {
           </TitleAndMerchantContainer>
           <ButtonsContainer>
             <ButtonContainer>
-              <TouchableOpacity onPress={() => { /*this.selectProduct( item )*/ this.setState({ isMenuOpen: true}) }}>
+              <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
                 <Icon color={ item.selected ? '#00cc66' : '#808080'} name={item.selected ? 'check-square-o' : 'square-o'} size={25} />
               </TouchableOpacity>
             </ButtonContainer>
