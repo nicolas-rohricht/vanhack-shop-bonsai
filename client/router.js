@@ -12,6 +12,7 @@ import Styles from './styles';
 import Products from './src/scenes/products';
 import ShoppingCart from './src/scenes/shopping-cart';
 import Checkout from './src/components/checkout';
+import User from './src/scenes/user';
 
 import TabCartIconTab from './src/components/tabCartIcon';
 
@@ -94,7 +95,7 @@ class RouterComponent extends Component {
                   <Scene 
                     key='user'
                     title='Profile'
-                    component={Products}
+                    component={User}
                   />
                 </Stack>  
               </Tabs>
