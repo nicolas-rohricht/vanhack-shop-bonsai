@@ -19,6 +19,8 @@ These project was created with mocked JSON's to show data in the entire app. As 
 
 ## Some features of the app
 
+![](1 - multiple_selector.gif)
+
 
 ## [Changelog](https://github.com/oblador/react-native-animatable/releases)
 
