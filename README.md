@@ -41,5 +41,3 @@ These project was created with mocked JSON's to show data in the entire app. As 
 ![](checkout.gif)
 
 
-## [Changelog](https://github.com/oblador/react-native-animatable/releases)
-
