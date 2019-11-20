@@ -1,51 +1,54 @@
 import React, { Component } from 'react';
 import { SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native';
+import moment from 'moment';
 
 import { connect } from 'react-redux';
 
-import { Container,  DescriptionContainer, ProductContainer, 
-        ProductImage, DescriptionTitle, DescriptionText, 
-        ImageAndDescriptionContainer, ManageQuantityContainer, 
-        ManageQuantityIcon, ManageQuantityText, HeaderCheckoutContainer, 
-        CheckoutIcon, CheckoutValue, DescriptionValueContainer, RemoveFromCartButton } from './styledComponents';
+import { Container, CartItemContainer, CartItemImage,
+         CartItemDescriptionContainer, CartItemTitle, CartItemText,
+         ManageQuantityContainer, ManageQuantityIcon, ManageQuantityText, 
+         HeaderCheckoutContainer, CheckoutValue, DescriptionValueContainer, 
+         RemoveFromCartButton } from './styles';
 import ActivityIndicator from '../../components/activityIndicator';
 import EmptyListComponent from '../../components/emptyListComponent';
-import { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart } from '../../actions/dbActions';
+import { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart, changeLastOrders } from '../../actions/dbActions';
 import { verticalScale, moderateScale } from '../../../sizes';
 import { Actions } from 'react-native-router-flux';
 
 class ShoppingCart extends Component {
   renderItem = ({item}) => {
-    return (
-      <ProductContainer >
-        <ImageAndDescriptionContainer>
-          <ProductImage resizeMode='stretch' source={{ uri: item.image }}/>
-          <DescriptionContainer>
-            <DescriptionTitle>{item && item.name}</DescriptionTitle>
-            <DescriptionText>Size: {item && item.size}</DescriptionText>
-            <DescriptionText>Color: {item && item.color}</DescriptionText>
-            <DescriptionText>Brand: {item && item.brand}</DescriptionText>
-            <DescriptionText>Price: ${item && (item.price).toFixed(2)} - Total ${item && (item.price * item.quantity).toFixed(2)}</DescriptionText>
-            <DescriptionText>Sold by: {item && item.merchant}</DescriptionText>
+    return(
+      <CartItemContainer>
+        <CartItemImage source={{ uri: item.image }}/>
+        <CartItemDescriptionContainer>
+          <CartItemTitle>{item && item.name}</CartItemTitle>
+          <CartItemText>Size: {item && item.size}</CartItemText>
+          <CartItemText>Color: {item && item.color}</CartItemText>
+          <CartItemText>Brand: {item && item.brand}</CartItemText>
+          <CartItemText>Price: ${item && (item.price).toFixed(2)} - Total ${item && (item.price * item.quantity).toFixed(2)}</CartItemText>
+          <CartItemText>Sold by: {item && item.merchant}</CartItemText>
 
-            <DescriptionText></DescriptionText>
-            <DescriptionText>How many you want to buy?</DescriptionText>
-            <ManageQuantityContainer>
-              <TouchableOpacity onPress={() => item.quantity > 0 ? this.props.manageProductCartQuantity( item, this.props.cartItems, 'decrease' ) : () => {} } >
-                <ManageQuantityIcon style={{ opacity: item.quantity > 0 ? 1 : 0.3 }} name='chevron-left'/>
-              </TouchableOpacity>
-              <ManageQuantityText>{item.quantity}</ManageQuantityText>
-              <TouchableOpacity onPress={() => this.props.manageProductCartQuantity( item, this.props.cartItems, 'increase' ) }>
-                <ManageQuantityIcon name='chevron-right'/>
-              </TouchableOpacity>
-            </ManageQuantityContainer>
-          </DescriptionContainer>
-          <TouchableOpacity onPress={ () => { this.props.removeCartItem( item, this.props.cartItems ) }}>
-            <RemoveFromCartButton name='times-circle'/>
+          <ManageQuantityContainer>
+            <TouchableOpacity onPress={() => item.quantity > 0 ? this.props.manageProductCartQuantity( item, this.props.cartItems, 'decrease' ) : () => {} } >
+              <ManageQuantityIcon style={{ opacity: item.quantity > 0 ? 1 : 0.3 }} name='chevron-left'/>
+            </TouchableOpacity>
+            <ManageQuantityText>{item.quantity}</ManageQuantityText>
+            <TouchableOpacity onPress={() => this.props.manageProductCartQuantity( item, this.props.cartItems, 'increase' ) }>
+              <ManageQuantityIcon name='chevron-right'/>
+            </TouchableOpacity>
+          </ManageQuantityContainer>
+        </CartItemDescriptionContainer>
+        <TouchableOpacity onPress={ () => { this.props.removeCartItem( item, this.props.cartItems ) }}>
+            <RemoveFromCartButton name='trash'/>
           </TouchableOpacity>
-        </ImageAndDescriptionContainer>
-      </ProductContainer>
-    );
+      </CartItemContainer>
+    )
+  }
+
+  addNewLastOrder = ( value ) => {
+    const newId = this.props.lastOrders.length + 1;
+
+    this.props.changeLastOrders({ id: newId, value, date: moment( new Date()) });
   }
 
   totalOfBuy() {
@@ -63,6 +66,7 @@ class ShoppingCart extends Component {
       return(
         <TouchableOpacity onPress={()=> {
           Actions.checkout();
+          this.addNewLastOrder( totalValue );
           setTimeout(() => this.props.removeAllItemsFromCart(), 1000);
         }}>
           <HeaderCheckoutContainer
@@ -95,7 +99,7 @@ class ShoppingCart extends Component {
           <SafeAreaView>
             { this.totalOfBuy() }
             <FlatList
-              style={{marginBottom: verticalScale(60)}}
+              style={{marginBottom: verticalScale(100)}}
               data={this.props.cartItems}
               renderItem={this.renderItem}
               keyExtractor={item => item.id.toString()}
@@ -114,6 +118,7 @@ class ShoppingCart extends Component {
 
 const mapStateToProps = state => ({
   cartItems: state.dbReducer.cartItems,
+  lastOrders: state.dbReducer.lastOrders
 });
 
-export default connect( mapStateToProps, { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart })(ShoppingCart);
+export default connect( mapStateToProps, { manageProductCartQuantity, removeCartItem, removeAllItemsFromCart, changeLastOrders })(ShoppingCart);

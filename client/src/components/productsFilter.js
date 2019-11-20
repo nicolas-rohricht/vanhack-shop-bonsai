@@ -53,7 +53,6 @@ class ProductsFilter extends Component {
   }
   
   renderBrandsItems = ( {item} ) => {
-    console.tron.log(item);
     return(
       <TouchableOpacity onPress={ () => { this.changeSelectedBrands( item ) }}>
         <ItemContainer>

@@ -40,11 +40,14 @@ class Checkout extends Component {
             style={{ opacity: this.state.textOpacity }}>
               Congrats!
           </CongratsText>
-          <TouchableOpacity onPress={() => Actions.pop()}>
+          <TouchableOpacity onPress={() => {
+            Actions.pop();
+            Actions.tabUser();
+          }}>
             <BackToProducts 
               ref={this.back}
               style={{ opacity: this.state.buttonOpacity }}>
-                Back to the products
+                Check your Last Orders
             </BackToProducts>
           </TouchableOpacity>
         </Container>

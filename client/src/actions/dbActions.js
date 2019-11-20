@@ -2,20 +2,10 @@ import Types from './actionsTypes';
 
 export const changeCartItems = (currentCartItems, item) => (dispatch) => {
   item.forEach( (element, index) => {
-    console.tron.log('element');
-    console.tron.log(element);
-
-    console.tron.log('currentCartItems');
-    console.tron.log(currentCartItems);
-
     const newItem = currentCartItems.filter( currentElement => currentElement.id === item[index].id);
-  
-    console.tron.log('new item')
-    console.tron.log(newItem)
 
     //If is empty, means that this product was not added to the cart yet
     if ( newItem.length === 0) {
-      console.tron.log('entrou aqui')
       const cartItems = currentCartItems.concat(element);
 
       dispatch({ type: Types.CHANGE_CART_ITEMS, payload: cartItems });
@@ -75,6 +65,17 @@ export const removeCartItem = ( item, cartItems ) => (dispatch) => {
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: tmpCartItems });
 }
 
+export const removeLikedItem = ( item, likedItems ) => (dispatch) => {
+  const tmpLikedItems = likedItems.filter(element => element.id !== item.id );
+
+  dispatch({ type: Types.CHANGE_LIKED_ITEMS, payload: [] });
+  dispatch({ type: Types.CHANGE_LIKED_ITEMS, payload: tmpLikedItems });
+}
+
 export const removeAllItemsFromCart = () => (dispatch) => {
   dispatch({ type: Types.CHANGE_CART_ITEMS, payload: [] });
+}
+
+export const changeLastOrders = (order) => (dispatch) => {
+  dispatch({ type: Types.CHANGE_LAST_ORDERS, payload: order }); 
 }

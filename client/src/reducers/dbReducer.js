@@ -2,7 +2,8 @@ import Types from '../actions/actionsTypes';
 
 const INITIAL_STATE = {
   cartItems: [],
-  likedItems: []
+  likedItems: [],
+  lastOrders: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,6 +20,11 @@ export default (state = INITIAL_STATE, action) => {
         likedItems: action.payload
       }
 
+    case Types.CHANGE_LAST_ORDERS: 
+      return {
+        ...state,
+        lastOrders: [...state.lastOrders, action.payload]
+      }
     default:
       return state;
   }

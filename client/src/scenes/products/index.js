@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {View, SafeAreaView, FlatList, StyleSheet, Text, Animated, TouchableOpacity } from 'react-native';
+import {View, SafeAreaView, FlatList, StyleSheet, 
+        Text, Animated, TouchableOpacity, Image  } from 'react-native';
 
 import Button from 'apsl-react-native-button';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
@@ -10,9 +11,9 @@ import SideMenu from 'react-native-side-menu';
 import ProductsFilter from '../../components/productsFilter';
 
 import { Container,  DescriptionContainer, ProductContainer, 
-          ProductImage, DescriptionTitle, DescriptionText,  ExtraButtonContainer, 
-          ExtraButton, AdditionalButtonsContainer, ImageAndDescriptionContainer,
-          ExtraButtonText, HeaderButtonsContainer } from './styledComponents';
+          ProductImage, DescriptionTitle, DescriptionMerchant,  ExtraButtonContainer, 
+          TitleAndMerchantContainer, ExtraButton, ButtonsContainer, ButtonContainer,
+          ExtraButtonText, HeaderButtonsContainer } from './styles';
 import { verticalScale, scale } from '../../../sizes';
 import { getListOfProducts } from '../../actions/productsActions';
 import ActivityIndicator from '../../components/activityIndicator';
@@ -56,48 +57,35 @@ class ProductList extends Component {
 
   renderItem = ({item}) => {
     return (
-      <ProductContainer >
-        <ImageAndDescriptionContainer>
-          <ProductImage resizeMode='stretch' source={{ uri: item.image }}/>
-          <DescriptionContainer>
-            <DescriptionTitle>{item && item.name}</DescriptionTitle>
-            <DescriptionText>Size: {item && item.size}</DescriptionText>
-            <DescriptionText>Color: {item && item.color}</DescriptionText>
-            <DescriptionText>Brand: {item && item.brand}</DescriptionText>
-            <DescriptionText>Price: ${item && (item.price).toFixed(2)}</DescriptionText>
-            <DescriptionText>Sold by: {item && item.merchant}</DescriptionText>
-            <DescriptionText >Description: {item && item.description}</DescriptionText>
-            <Button
-              onPress={()=>{ this.buyProduct( item ) }}      
-              style={ styles.buyButton } 
-              textStyle={ styles.textStyle }
-            >
-                Buy
-            </Button>
-          </DescriptionContainer>
-        </ImageAndDescriptionContainer>
-        <AdditionalButtonsContainer>
-          <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
-            <ExtraButtonContainer>
-              <ExtraButton name={item.selected ? 'check-square-o' : 'square-o'} size={extraButtonIconSize} color={ item.selected ? '#00cc66' : '#808080'} /> 
-              <ExtraButtonText style={{ color: item.selected ? '#00cc66' : '#808080'}}>Select</ExtraButtonText>
-            </ExtraButtonContainer>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.addToLiked( item ) }}>
-            <ExtraButtonContainer>
-              <ExtraButton name='heart' size={extraButtonIconSize} color={'#ff1a1a'} />
-              <ExtraButtonText style={{ color:'#ff1a1a'}}>Favorite</ExtraButtonText>
-            </ExtraButtonContainer>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.addToCart( item ) }}>
-            <ExtraButtonContainer>
-              <ExtraButton name='shopping-cart' size={extraButtonIconSize} color={'#008000'} />
-              <ExtraButtonText style={{ color:'#008000'}}>Add to cart</ExtraButtonText>
-            </ExtraButtonContainer>
-          </TouchableOpacity>
-          </AdditionalButtonsContainer>
+      <ProductContainer>
+        <ProductImage 
+          source={{ uri: item.image }}
+        />
+        <DescriptionContainer>
+          <TitleAndMerchantContainer >
+            <DescriptionTitle>{item.name}</DescriptionTitle>
+            <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
+          </TitleAndMerchantContainer>
+          <ButtonsContainer>
+            <ButtonContainer>
+              <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
+                <Icon color={ item.selected ? '#00cc66' : '#808080'} name={item.selected ? 'check-square-o' : 'square-o'} size={25} />
+              </TouchableOpacity>
+            </ButtonContainer>
+            <ButtonContainer>
+              <TouchableOpacity onPress={() => { this.addToLiked( item ) }}>
+                <Icon color={'#2196f3'} name='heart' size={25} />
+              </TouchableOpacity>
+            </ButtonContainer>
+            <ButtonContainer>
+              <TouchableOpacity onPress={() => { this.addToCart( item ) }}>
+                <Icon color={'#008000'} name='shopping-cart' size={25} />
+              </TouchableOpacity>
+            </ButtonContainer>
+          </ButtonsContainer>
+        </DescriptionContainer>
       </ProductContainer>
-    );
+    )
   }
 
   renderClearOrBuyAllProducts() {
@@ -140,6 +128,8 @@ class ProductList extends Component {
             <SafeAreaView>
               { this.renderClearOrBuyAllProducts() }
               <FlatList
+                numColumns={ 2 }
+                style={{ alignSelf: 'center' }}
                 data={this.props.listOfProducts}
                 renderItem={this.renderItem}
                 keyExtractor={item => item.id.toString()}

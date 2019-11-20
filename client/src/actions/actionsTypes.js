@@ -5,5 +5,7 @@ export default {
 
   //DB CONSTS
   CHANGE_CART_ITEMS: 'change_cart_items',
-  CHANGE_LIKED_ITEMS: 'change_liked_items'
+  CHANGE_LIKED_ITEMS: 'change_liked_items',
+  CHANGE_LAST_ORDERS: 'change_last_orders'
+
 }

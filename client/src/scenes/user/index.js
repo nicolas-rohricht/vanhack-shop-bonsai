@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { UserContainer, UserImage, UserName, UserEmail, ButtonsContainer, 
-         ButtonContainer, Separator, ButtonIcon, ButtonText } from './styledComponents';
+         ButtonContainer, Separator, ButtonIcon, ButtonText } from './styles';
+import { Actions } from 'react-native-router-flux';
 
 class User extends Component {
   render() {
@@ -13,15 +15,19 @@ class User extends Component {
         <UserEmail>nicolas.rohricht@outlook.com</UserEmail>
 
         <ButtonsContainer>
-          <ButtonContainer>
-            <ButtonIcon name='heart' color='#ff1a1a' />
-            <ButtonText>Liked products</ButtonText>
-          </ButtonContainer>
+          <TouchableOpacity onPress={() => Actions.liked()}>
+            <ButtonContainer>
+              <ButtonIcon name='heart' color='#2196f3' />
+              <ButtonText>Liked products</ButtonText>
+            </ButtonContainer>
+          </TouchableOpacity>
           <Separator />
-          <ButtonContainer>
-            <ButtonIcon name='history' color='#009933' />
-            <ButtonText>Last orders</ButtonText>
-          </ButtonContainer>
+          <TouchableOpacity onPress={() => Actions.lastOrders()}>
+            <ButtonContainer>
+              <ButtonIcon name='history' color='#009933' />
+              <ButtonText>Last orders</ButtonText>
+            </ButtonContainer>
+          </TouchableOpacity>
         </ButtonsContainer>
       </UserContainer>
     )

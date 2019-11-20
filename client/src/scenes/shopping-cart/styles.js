@@ -8,43 +8,16 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const ProductContainer = styled.View`
-  flex-direction: column;
-  margin: 10px 10px;
-  border-radius: 8px;
-  height: 250px;
-  background-color: #b6dcfb;
-`;
-
-export const ImageAndDescriptionContainer  = styled.View`
-  flex-direction: row;
-  margin: 10px 10px;
-`
-
 export const DescriptionContainer =styled.View`
   flex: 6;
   flex-direction: column;
 `;
 
-export const ProductImage = styled.Image`
-  width: 130;
-  height: 170;
-  border-radius: 8px;
-`
-export const DescriptionTitle = styled.Text`
-  font-size: 20px;
-  margin-left: 10px;
-`
-export const DescriptionText = styled.Text`
-  font-size: 16px;
-  margin-left: 10px;
-`
-
 export const ManageQuantityContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: 10px;
+  margin-top: 20px;
 `
 
 export const ManageQuantityIcon = styled(Icon)`
@@ -58,18 +31,13 @@ export const ManageQuantityText = styled.Text`
   background-color: #2196f3;
   color: white
 `
+
 export const HeaderCheckoutContainer = styled(Animatable.View)`
   flex-direction: row;
   align-items: center;
   padding-bottom: 5px;
   margin: 10px 10px;
   justify-content: space-around;
-`
-
-export const CheckoutIcon = styled(Icon)`
-  font-size: 45px;
-  margin: 5px 10px;
-  color: green;
 `
 
 export const CheckoutValue = styled.Text`
@@ -81,7 +49,41 @@ export const CheckoutValue = styled.Text`
 export const DescriptionValueContainer = styled.View`
   flex-direction: column
 `
+
 export const RemoveFromCartButton = styled(Icon)`
   font-size: 30px;
   color: #ff3333;
+  margin-right: 30px;
+`
+
+export const CartItemContainer = styled.View`
+  flex-direction: row;
+  margin: 10px 10px;
+  align-items: center;
+  border-top-width: 0.6;
+  border-top-color: gray;
+  padding-top: 25px;
+`
+export const CartItemDescriptionContainer = styled.View`
+  flex-direction: column;
+  margin-left: 10px;
+  border-left-width: 0.6;
+  border-left-color: gray;
+  flex: 1;
+`
+
+export const CartItemImage = styled.Image`
+  width: 70;
+  height: 85;
+`
+
+
+
+export const CartItemTitle = styled.Text`
+  font-size: 20px;
+  margin-left: 10px;
+`
+export const CartItemText = styled.Text`
+  font-size: 16px;
+  margin-left: 10px;
 `

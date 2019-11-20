@@ -13,6 +13,8 @@ import Products from './src/scenes/products';
 import ShoppingCart from './src/scenes/shopping-cart';
 import Checkout from './src/components/checkout';
 import User from './src/scenes/user';
+import LikedProducts from './src/scenes/liked-products';
+import LastOrders from './src/scenes/last-orders';
 
 import TabCartIconTab from './src/components/tabCartIcon';
 
@@ -96,6 +98,18 @@ class RouterComponent extends Component {
                     key='user'
                     title='Profile'
                     component={User}
+                  />
+
+                  <Scene 
+                    key='liked'
+                    title='My Liked Products'
+                    component={LikedProducts}
+                  />
+
+                  <Scene 
+                    key='lastOrders'
+                    title='My Last Orders'
+                    component={LastOrders}
                   />
                 </Stack>  
               </Tabs>
