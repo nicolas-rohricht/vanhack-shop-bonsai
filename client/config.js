@@ -13,8 +13,8 @@ const persistConfig = {
 
  const pReducer = persistReducer(persistConfig, reducers);
 
-/*export const tron = reactotron
-.configure({ host:'192.168.15.3' })
+export const tron = reactotron
+.configure({ host:'192.168.0.33' })
 .configure()
 .useReactNative()
 .use(overlay())
@@ -22,7 +22,7 @@ const persistConfig = {
 
 tron.clear();
 
-console.tron = tron;*/
+console.tron = tron;
 
 export const store = createStore(
   pReducer,

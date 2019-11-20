@@ -50,7 +50,7 @@ class ProductList extends Component {
   addAllToCart = () => {
     const allSelected = this.props.listOfProducts.filter(element => element.selected);
 
-    this.props.changeCartItems( this.props.cartItems, [allSelected]);
+    this.props.changeCartItems( this.props.cartItems, allSelected);
   }
 
   //Buy a single product
@@ -70,6 +70,7 @@ class ProductList extends Component {
           <TitleAndMerchantContainer >
             <DescriptionTitle>{item.name}</DescriptionTitle>
             <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
+            <DescriptionMerchant>{item.color}</DescriptionMerchant>
           </TitleAndMerchantContainer>
           <ButtonsContainer>
             <ButtonContainer>

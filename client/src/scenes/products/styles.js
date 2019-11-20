@@ -17,7 +17,7 @@ export const ProductContainer = styled.View`
 
 export const DescriptionContainer =styled.View`
   flex-direction: column;
-  height: 90px; 
+  height: 115px; 
   border-bottom-width: 1;
   border-top-width: 1; 
   border-left-width: 0.5; 

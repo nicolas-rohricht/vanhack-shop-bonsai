@@ -4,17 +4,30 @@ import Types from './actionsTypes';
 
 //Manage the cart items
 export const changeCartItems = (currentCartItems, item) => (dispatch) => {
-  item.forEach( (element, index) => {
-    const newItem = currentCartItems.filter( currentElement => currentElement.id === item[index].id);
+  let tmpCurrentCartItems = [];
+  let exists = false;
 
-    //If is empty, means that this product was not added to the cart yet
-    if ( newItem.length === 0) {
-      const cartItems = currentCartItems.concat(element);
+  for (let index = 0; index < item.length; index++) {
+    const itemElement = item[index];
+    
+    exists = false;
 
-      dispatch({ type: Types.CHANGE_CART_ITEMS, payload: cartItems });
+    for (let index = 0; index < currentCartItems.length; index++) {
+      const cartElement = currentCartItems[index];
+      
+      if (cartElement.id === itemElement.id) {
+        exists = true;
+      }
     }
-  });
+
+    console.tron.log(`vai verificar o exists:  ${exists}`);
+    if (!exists) {
+      currentCartItems = currentCartItems.concat( itemElement );
+    }
+  }
   
+  const finalList = currentCartItems.concat(tmpCurrentCartItems)
+  dispatch({ type: Types.CHANGE_CART_ITEMS, payload: currentCartItems });
 }
 
 //Manage the liked items
