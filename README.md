@@ -11,8 +11,10 @@ To run this app:
 1 - Download the entire app folder with git clone or download the zip archive, as you prefer. 
 
 2 - Access the root folder of the project and run according to your package manager: `npm install` or `yarn add`.
-3 - Before running the project, I would you recommend to access the android folder and run `gradlew clean` until you got success on this comand.
-4 - Run `react-native run-android` to run the project on a connected device or a opened simulator.
+
+3 - Before running the project, I would recommend you to access the android folder and run `gradlew clean` until you got success on this comand. Normaly, it's already happens on the first run.
+
+4 - Run `react-native run-android` to run the project on a connected device or an opened simulator.
 
 ## Some notes
 
@@ -34,7 +36,7 @@ These project was created with mocked JSON's to show data in the entire app. As 
 
 ![](cart_counter.gif)
 
-### Animated checkout process - a beautifull an animated checkout process
+### Animated checkout process - a beautiful animated checkout process
 
 ![](checkout.gif)
 
