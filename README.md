@@ -8,7 +8,8 @@ I also used some of another and great technologies that I would like to mention,
 
 To run this app: 
 
-1 - Download the entire app folder with git clone or download the zip archive, as you prefer.
+1 - Download the entire app folder with git clone or download the zip archive, as you prefer. 
+
 2 - Access the root folder of the project and run according to your package manager: `npm install` or `yarn add`.
 3 - Before running the project, I would you recommend to access the android folder and run `gradlew clean` until you got success on this comand.
 4 - Run `react-native run-android` to run the project on a connected device or a opened simulator.
@@ -19,7 +20,23 @@ These project was created with mocked JSON's to show data in the entire app. As 
 
 ## Some features of the app
 
+### Multiple Selector - to select more than one product to add them to the cart
+
 ![](multiple_selector.gif)
+
+### Product Filter - to find exactly what you want
+
+![](filter.gif)
+
+## Some nice details
+
+### Cart counter - to show to the users how many items they alrady have inside of the cart
+
+![](cart_counter.gif)
+
+### Animated checkout process - a beautifull an animated checkout process
+
+![](checkout.gif)
 
 
 ## [Changelog](https://github.com/oblador/react-native-animatable/releases)
