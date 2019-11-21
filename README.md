@@ -2,7 +2,7 @@
 This repository is a project created to Bonsai Shop while participating of Vanhackaton recruitment fair.
 
 My objective was to demonstrate my React Native skills while creating a frontend app running on Android.
-I also used some of another and great technologies that I would like to mention, like Redux to manage the state of the app and Lottie to have some fun animations.
+I also used some of another and great technologies that I would like to mention, like Redux to manage the state of the app, Redux Persist to keep the data stored even the app is closed and Lottie to have some fun animations.
 
 ## Running the project
 
