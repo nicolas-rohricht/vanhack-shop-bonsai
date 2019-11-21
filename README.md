@@ -16,6 +16,8 @@ To run this app:
 
 4 - Run `react-native run-android` to run the project on a connected device or an opened simulator.
 
+5 - When the app opens up, some warnings might be showing, well know too as Yellow Boxes. This is because React Native was recently updated to the V0.60+ and the libraries makers need to do some updates on their components too.
+
 ## Some notes
 
 These project was created with mocked JSON's to show data in the entire app. As I'm learning some of backends stacks at this moment, currently I wouldn't have how to create an API to fill the app with data. So, my idea was to demonstrate some of Frontend skills and what I could do if being a part of an entire team, with another devs, designers, etc...
