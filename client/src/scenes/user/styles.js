@@ -12,7 +12,7 @@ export const UserImage = styled.Image`
   height: 120px;
   width: 120px;
   border-radius: 60;
-  border-width: 0.6;
+  border-width: 0.5;
   border-color: black;
 `
 
@@ -29,14 +29,14 @@ export const UserEmail = styled.Text`
 
 export const ButtonsContainer = styled.View`
   margin: 50px 40px;
-  border-top-width: 0.6;
+  border-top-width: 0.5;
   border-top-color: black;
   flex-direction: row;
 `
 
 export const Separator = styled.View`
   margin: 30px;
-  border-left-width: 0.6;
+  border-left-width: 0.5;
   border-left-color: black;
 `
 

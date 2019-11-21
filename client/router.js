@@ -17,6 +17,7 @@ import LikedProducts from './src/scenes/liked-products';
 import LastOrders from './src/scenes/last-orders';
 import { RenderFilterButtonLeft } from './src/components/navBarFilterButton';
 import TabCartIconTab from './src/components/tabCartIcon';
+import ProductDetail from './src/scenes/product-detail';
 
 const focusedColor = 'black';
 const unfocusedColor = 'gray';
@@ -28,8 +29,6 @@ class RouterComponent extends Component {
       <Icon name='home' size={tabBarIconSize} color={ focused ? focusedColor : unfocusedColor} />
     </ContainerIconTab>
   );
-
-  
 
   TabUser = ({ focused }) => (
     <ContainerIconTab>
@@ -69,6 +68,12 @@ class RouterComponent extends Component {
                     title='Products'
                     component={Products}
                     renderLeftButton={ () => RenderFilterButtonLeft() }
+                  />
+
+                  <Scene 
+                    key='productDetail'
+                    title='Product Detail'
+                    component={ProductDetail}
                   />
                 </Stack>  
                 <Stack

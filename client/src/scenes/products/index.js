@@ -1,7 +1,7 @@
 //The main App's screen. List the producst and all the functionalities
 
 import React, { Component } from 'react';
-import {View,SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
@@ -85,45 +85,49 @@ class ProductList extends Component {
   //Render the product item
   renderItem = ({item}) => {
     return (
-      <ProductContainer>
-        <ProductImage 
-          source={{ uri: item.image }}
-        />
-        <DescriptionContainer>
-          <TitleAndMerchantContainer >
-            <TextsContainer>
-              <DescriptionTitle>{item.name}</DescriptionTitle>
-              <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
-              <DescriptionMerchant>{item.color}</DescriptionMerchant>
-            </TextsContainer>
-            
-              <Button
-                onPress={()=>{ this.buyProduct( item ) }}      
-                style={ styles.buyButton } 
-                textStyle={ styles.textStyle }
-              >
-                  Buy
-              </Button>
-          </TitleAndMerchantContainer>
-          <ButtonsContainer>
-            <ButtonContainer>
-              <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
-                <Icon color={ item.selected ? '#00cc66' : '#808080'} name={item.selected ? 'check-square-o' : 'square-o'} size={25} />
-              </TouchableOpacity>
-            </ButtonContainer>
-            <ButtonContainer>
-              <TouchableOpacity onPress={() => { this.addToLiked( item ) }}>
-                <Icon color={'#2196f3'} name='heart' size={25} />
-              </TouchableOpacity>
-            </ButtonContainer>
-            <ButtonContainer>
-              <TouchableOpacity onPress={() => { this.addToCart( item ) }}>
-                <Icon color={'#008000'} name='shopping-cart' size={25} />
-              </TouchableOpacity>
-            </ButtonContainer>
-          </ButtonsContainer>
-        </DescriptionContainer>
-      </ProductContainer>
+      <TouchableOpacity
+        onPress={() => Actions.productDetail({ item: item })}
+      >
+        <ProductContainer>
+          <ProductImage 
+            source={{ uri: item.image }}
+          />
+          <DescriptionContainer>
+            <TitleAndMerchantContainer >
+              <TextsContainer>
+                <DescriptionTitle>{item.name}</DescriptionTitle>
+                <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
+                <DescriptionMerchant>{item.color}</DescriptionMerchant>
+              </TextsContainer>
+              
+                <Button
+                  onPress={()=>{ this.buyProduct( item ) }}      
+                  style={ styles.buyButton } 
+                  textStyle={ styles.textStyle }
+                >
+                    Buy
+                </Button>
+            </TitleAndMerchantContainer>
+            <ButtonsContainer>
+              <ButtonContainer>
+                <TouchableOpacity onPress={() => { this.selectProduct( item ) }}>
+                  <Icon color={ item.selected ? '#00cc66' : '#808080'} name={item.selected ? 'check-square-o' : 'square-o'} size={25} />
+                </TouchableOpacity>
+              </ButtonContainer>
+              <ButtonContainer>
+                <TouchableOpacity onPress={() => { this.addToLiked( item ) }}>
+                  <Icon color={'#2196f3'} name='heart' size={25} />
+                </TouchableOpacity>
+              </ButtonContainer>
+              <ButtonContainer>
+                <TouchableOpacity onPress={() => { this.addToCart( item ) }}>
+                  <Icon color={'#008000'} name='shopping-cart' size={25} />
+                </TouchableOpacity>
+              </ButtonContainer>
+            </ButtonsContainer>
+          </DescriptionContainer>
+        </ProductContainer>
+      </TouchableOpacity>
     )
   }
 
