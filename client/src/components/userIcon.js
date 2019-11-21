@@ -10,7 +10,7 @@ const tabBarIconSize = 42;
 const focusedColor = 'black';
 const unfocusedColor = 'gray';
 
-class TabCartIcon extends Component {
+class UserIcon extends Component {
   render() {
     const { focused } = this.props;
     return (
@@ -18,25 +18,27 @@ class TabCartIcon extends Component {
         animation='tada'
         duration={400}
         useNativeDriver 
-        style={{ marginTop: this.props.cartItems.length > 0 ? 5 : 0}}
+        style={{ marginTop: this.props.likedItems.length > 0 ? 20 : 0}}
       >
-        { this.props.cartItems.length > 0 &&
+        { this.props.likedItems.length > 0 &&
           <CounterText 
             animation='slideInUp'
             duration={100}
             useNativeDriver
-          >{this.props.cartItems.length}</CounterText>
+          >{this.props.likedItems.length}</CounterText>
         }
         
-        <Icon name='shopping-cart' size={tabBarIconSize} color={ focused ? focusedColor : unfocusedColor} />
+        <Icon name='user' size={tabBarIconSize} color={ focused ? focusedColor : unfocusedColor} />
       </ContainerIconTab>
     )
   }
 }
 
+
 const ContainerIconTab = styled(Animatable.View)`
   align-items: center;
   justify-content: center;
+  
 `
 
 const CounterText = styled(Animatable.Text)`
@@ -44,12 +46,12 @@ const CounterText = styled(Animatable.Text)`
   font-size: 16px;
   font-weight: bold;
   z-index: 1;
-  margin-bottom: -27px;
-  margin-right: -5px;
+  margin-bottom: -42px;
+  margin-right: -2px;
 `
 
 const mapStateToProps = state => ({
-  cartItems: state.dbReducer.cartItems
+  likedItems: state.dbReducer.likedItems
 })
 
-export default connect( mapStateToProps, {})(TabCartIcon);
+export default connect( mapStateToProps, {})(UserIcon);
