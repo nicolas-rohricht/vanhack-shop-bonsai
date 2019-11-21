@@ -36,6 +36,10 @@ These project was created with mocked JSON's to show data in the entire app. As 
 
 ![](cart_counter.gif)
 
+### Liked counter - to show to the users how many items they liked
+
+![](liked_counter.gif)
+
 ### Animated checkout process - a beautiful animated checkout process
 
 ![](checkout.gif)
