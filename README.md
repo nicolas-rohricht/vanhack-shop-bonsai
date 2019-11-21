@@ -32,7 +32,7 @@ These project was created with mocked JSON's to show data in the entire app. As 
 
 ## Some nice details
 
-### Cart counter - to show to the users how many items they alrady have inside of the cart
+### Cart counter - to show to the users how many items they already have inside of the cart
 
 ![](cart_counter.gif)
 
