@@ -1,16 +1,17 @@
 //The main App's screen. List the producst and all the functionalities
 
 import React, { Component } from 'react';
-import {SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import {View,SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import ProductsFilter from '../../components/productsFilter';
 import { Actions } from 'react-native-router-flux';
+import Button from 'apsl-react-native-button';
 
 import { Container,  DescriptionContainer, ProductContainer, 
           ProductImage, DescriptionTitle, DescriptionMerchant,  ExtraButtonContainer, 
-          TitleAndMerchantContainer, ExtraButton, ButtonsContainer, ButtonContainer,
+          TitleAndMerchantContainer, TextsContainer, ExtraButton, ButtonsContainer, ButtonContainer,
           ExtraButtonText, HeaderButtonsContainer } from './styles';
 import { verticalScale, scale } from '../../../sizes';
 import { getListOfProducts } from '../../actions/productsActions';
@@ -90,9 +91,19 @@ class ProductList extends Component {
         />
         <DescriptionContainer>
           <TitleAndMerchantContainer >
-            <DescriptionTitle>{item.name}</DescriptionTitle>
-            <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
-            <DescriptionMerchant>{item.color}</DescriptionMerchant>
+            <TextsContainer>
+              <DescriptionTitle>{item.name}</DescriptionTitle>
+              <DescriptionMerchant>{item.merchant}</DescriptionMerchant>
+              <DescriptionMerchant>{item.color}</DescriptionMerchant>
+            </TextsContainer>
+            
+              <Button
+                onPress={()=>{ this.buyProduct( item ) }}      
+                style={ styles.buyButton } 
+                textStyle={ styles.textStyle }
+              >
+                  Buy
+              </Button>
           </TitleAndMerchantContainer>
           <ButtonsContainer>
             <ButtonContainer>
@@ -184,11 +195,12 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(10)
   },
   buyButton: {
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(10),
     backgroundColor: '#2196f3',
     borderWidth: 0,
-    marginHorizontal: scale(10),
-    marginTop: verticalScale(7)
+    marginRight: scale(10),
+    marginTop: verticalScale(15),
+    flex: 1
   },
   textStyle: {
     textAlign: 'center',

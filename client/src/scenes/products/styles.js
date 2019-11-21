@@ -17,7 +17,7 @@ export const ProductContainer = styled.View`
 
 export const DescriptionContainer =styled.View`
   flex-direction: column;
-  height: 115px; 
+  height: 130px; 
   border-bottom-width: 1;
   border-top-width: 1; 
   border-left-width: 0.5; 
@@ -26,10 +26,15 @@ export const DescriptionContainer =styled.View`
 `
 
 export const TitleAndMerchantContainer = styled.View`
-  flex-direction: column;
+  flex-direction: row;
   flex: 2;
   margin-top: 5;
   margin-left: 10;
+`
+
+export const TextsContainer = styled.View`
+  flex-direction: column;
+  flex: 4;
 `
 
 export const ProductImage = styled.Image`
